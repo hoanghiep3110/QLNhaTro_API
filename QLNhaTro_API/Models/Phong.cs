@@ -1,4 +1,4 @@
-namespace QLNhaTro_API.Models
+﻿namespace QLNhaTro_API.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,8 +19,12 @@ namespace QLNhaTro_API.Models
         [Key]
         public int IdPhong { get; set; }
 
-        public int TenPhong { get; set; }
+        [Display(Name = "TÊN PHÒNG")]
+        [Required]
+        [StringLength(255)]
+        public string TenPhong { get; set; }
 
+        [Display(Name = "TRẠNG THÁI")]
         public bool TrangThai { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

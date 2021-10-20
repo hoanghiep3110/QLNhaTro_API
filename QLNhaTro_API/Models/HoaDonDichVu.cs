@@ -1,4 +1,4 @@
-namespace QLNhaTro_API.Models
+﻿namespace QLNhaTro_API.Models
 {
     using System;
     using System.Collections.Generic;
@@ -18,18 +18,20 @@ namespace QLNhaTro_API.Models
         [Key]
         public int IdHoaDon { get; set; }
 
-        public int IdDichVu { get; set; }
-
         public int IdTaiKhoan { get; set; }
 
+        [Display(Name = "PHÒNG")]
         public int IdPhong { get; set; }
 
+        [Display(Name = "kHÁCH HÀNG")]
         public int IdKhachHang { get; set; }
 
+        [Display(Name = "TỔNG TIỀN CẦN THANH TOÁN")]
         [StringLength(10)]
         public string TienThanhToan { get; set; }
 
-        public byte TrangThaiThanhToan { get; set; }
+        [Display(Name = "TRẠNG THÁI")]
+        public bool TrangThaiThanhToan { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }

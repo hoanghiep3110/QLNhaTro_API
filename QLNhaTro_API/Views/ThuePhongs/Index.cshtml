@@ -1,0 +1,77 @@
+﻿@model IEnumerable<QLNhaTro_API.Models.ThuePhong>
+
+@{
+    ViewBag.Title = "Hợp Đồng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<h2>Index</h2>
+
+<p style="text-align:right;margin:20px;">
+    <a href="@Url.Action("Create","ThuePhongs")" class="btn btn-primary">Tạo mới</a>
+</p>
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                TÊN NGƯỜI THUÊ
+            </th>
+            <th>
+                PHÒNG THUÊ
+            </th>
+            <th>
+                TIỀN ĐẶT CỌC
+            </th>
+            <th>
+                NGÀY BẮT ĐẦU
+            </th>
+            <th>
+                NGÀY KẾT THÚC
+            </th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KhachHang.HoTen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phong.TenPhong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TienDatCoc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayBatDau)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayKetThuc)
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-success" href="@Url.Action("Edit","ThuePhongs",new { @id = item.IdThue })">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a class="btn btn-sm btn-danger" href="@Url.Action("Delete","ThuePhongs",new { @id = item.IdThue })">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                    <a class="btn btn-sm btn-info" href="@Url.Action("Details","ThuePhongs",new { @id = item.IdThue })">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    jQuery(document).ready(function () {
+        $('#myTable').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.22/i18n/Vietnamese.json"
+            }
+        });
+    });
+</script>

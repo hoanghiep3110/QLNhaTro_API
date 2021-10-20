@@ -1,0 +1,75 @@
+﻿@model IEnumerable<QLNhaTro_API.Models.ChiTietHoaDon>
+@using System.Globalization
+@{
+    ViewBag.Title = "Chi Tiết Hoá Đơn";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<p style="text-align:right;margin:20px;">
+    <a href="@Url.Action("Index","HoaDonDichVus")" class="btn btn-primary">QUAY LẠI</a>
+</p>
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                TÊN DỊCH VỤ
+            </th>
+            <th>
+                TÊN NGƯỜI SỬ DỤNG
+            </th>
+            <th>
+                TỪ NGÀY
+            </th>
+            <th>
+                TỚI NGÀY
+            </th>
+            <th>
+                CHỈ SỐ CŨ
+            </th>
+            <th>
+                CHỈ SỐ MỚI
+            </th>
+            <th>
+                THÀNH TIỀN
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DichVu.TenDichVu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HoaDonDichVu.KhachHang.HoTen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TuNgay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ToiNgay)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChiSoCu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ChiSoMoi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThanhTien)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script>
+    jQuery(document).ready(function () {
+        $('#myTable').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.22/i18n/Vietnamese.json"
+            }
+        });
+    });
+</script>

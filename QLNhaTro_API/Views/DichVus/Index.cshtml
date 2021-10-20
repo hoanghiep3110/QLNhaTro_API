@@ -1,0 +1,58 @@
+﻿@model IEnumerable<QLNhaTro_API.Models.DichVu>
+@using System.Globalization
+@{
+    ViewBag.Title = "Dịch Vụ";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<p style="text-align:right;margin:20px;">
+    <a href="@Url.Action("Create","DichVus")" class="btn btn-primary">Tạo mới</a>
+</p>
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenDichVu)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DonGia)
+            </th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenDichVu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DonGia)
+                </td>
+                <td>
+                    <a class="btn btn-sm btn-success" href="@Url.Action("Edit","DichVus",new { @id = item.IdDichVu })">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a class="btn btn-sm btn-danger" href="@Url.Action("Delete","DichVus",new { @id = item.IdDichVu })">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                    <a class="btn btn-sm btn-info" href="@Url.Action("Details","DichVus",new { @id = item.IdDichVu })">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script>
+    jQuery(document).ready(function () {
+        $('#myTable').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.22/i18n/Vietnamese.json"
+            }
+        });
+    });
+</script>

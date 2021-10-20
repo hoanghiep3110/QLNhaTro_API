@@ -29,6 +29,8 @@ namespace QLNhaTro_API.Models
 
         public int? ChiSoMoi { get; set; }
 
+        public int ThanhTien { get; set; }
+
         public virtual DichVu DichVu { get; set; }
 
         public virtual HoaDonDichVu HoaDonDichVu { get; set; }

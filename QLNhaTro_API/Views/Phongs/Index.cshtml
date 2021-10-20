@@ -1,0 +1,61 @@
+﻿@model IEnumerable<QLNhaTro_API.Models.Phong>
+@using System.Globalization
+@{
+    ViewBag.Title = "Phòng";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<p style="text-align:right;margin:20px;">
+    <a href="@Url.Action("Create","Phongs")" class="btn btn-primary">Tạo mới</a>
+</p>
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenPhong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenPhong)
+                </td>
+                <td>
+                    @if (item.TrangThai == true)
+                    {<i class="fas fa-check-circle text-success"></i><b><span style="color:green; padding: 5px">ĐÃ CÓ NGƯỜI</span></b>}
+                    else
+                    {<i class="fas fa-times-circle text-danger"></i><b><span style="color:red; padding: 5px">PHÒNG ĐANG TRỐNG</span></b>}
+                </td>  
+                <td>
+                    <a class="btn btn-sm btn-success" href="@Url.Action("Edit","Phongs",new { @id = item.IdPhong })">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a class="btn btn-sm btn-danger" href="@Url.Action("Delete","Phongs",new { @id = item.IdPhong })">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                    <a class="btn btn-sm btn-info" href="@Url.Action("Details","Phongs",new { @id = item.IdPhong })">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+<script>
+    jQuery(document).ready(function () {
+        $('#myTable').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.22/i18n/Vietnamese.json"
+            }
+        });
+    });
+</script>

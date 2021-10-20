@@ -1,0 +1,93 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Login</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/bootstraplogin/css/bootstrap.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Content/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Content/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/animate/animate.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/css-hamburgers/hamburgers.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/animsition/css/animsition.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/select2/select2.min.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Content/vendor/daterangepicker/daterangepicker.css">
+    <!--===============================================================================================-->
+    <link rel="stylesheet" type="text/css" href="/Content/css/util.css">
+    <link rel="stylesheet" type="text/css" href="/Content/css/main.css">
+    <link rel="shortcut icon" href="~/Content/Image/house.png">
+    <!--===============================================================================================-->
+</head>
+<body style="background-color: #666666;">
+
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="wrap-login100">
+                <form class="login100-form validate-form" method="post">
+                    <span class="login100-form-title p-b-43">
+                        <b>ĐĂNG NHẬP ADMIN</b>
+                    </span>
+
+                    @using (Html.BeginForm("Login", "Auth"))
+                    {
+                        @Html.ValidationSummary(true)
+                        <div class="wrap-input100">
+                            <input class="input100" type="text" placeholder="Tài khoản" name="userName" required>
+                            <span class="focus-input100"></span>
+
+                        </div>
+
+
+                        <div class="wrap-input100">
+                            <input class="input100" type="password" placeholder="Mật khẩu" name="password" required>
+                            <span class="focus-input100"></span>
+
+                        </div>
+                        <div class="mb-3 mx-3">
+                            <span style="color:red">@ViewBag.ThongBao</span>
+                        </div>
+                        <div class="container-login100-form-btn">
+                            <button type="submit" class="login100-form-btn">
+                                <b>ĐĂNG NHẬP</b>
+                            </button>
+                        </div>
+                    }
+                </form>
+                <div class="login100-more" style="background-image: url('/Content/Image/logologin.png');">
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+    <!--===============================================================================================-->
+    <script src="/Content/vendor/jquery/jquery-3.2.1.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/Content/vendor/animsition/js/animsition.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/Content/vendor/bootstrap/js/popper.js"></script>
+    <script src="/Content/vendor/bootstrap/js/bootstrap.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/Content/vendor/select2/select2.min.js"></script>
+    <!--===============================================================================================-->
+    <script src="/Content/vendor/daterangepicker/moment.min.js"></script>
+    <script src="/Content/vendor/daterangepicker/daterangepicker.js"></script>
+    <!--===============================================================================================-->
+    <script src="/Content/vendor/countdowntime/countdowntime.js"></script>
+    <!--===============================================================================================-->
+    <script src="/Content/js/main.js"></script>
+
+</body>
+</html>

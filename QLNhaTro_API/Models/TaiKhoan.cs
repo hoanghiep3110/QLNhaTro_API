@@ -1,4 +1,4 @@
-namespace QLNhaTro_API.Models
+﻿namespace QLNhaTro_API.Models
 {
     using System;
     using System.Collections.Generic;
@@ -18,14 +18,17 @@ namespace QLNhaTro_API.Models
         [Key]
         public int IdTaiKhoan { get; set; }
 
+        [Display(Name = "HỌ VÀ TÊN")]
         [Required]
         [StringLength(255)]
         public string HoTen { get; set; }
 
+        [Display(Name = "SỐ ĐIỆN THOẠI")]
         [Required]
         [StringLength(10)]
         public string Sdt { get; set; }
 
+        [Display(Name = "ĐỊA CHỈ")]
         [Required]
         [StringLength(255)]
         public string DiaChi { get; set; }

@@ -1,0 +1,64 @@
+﻿@model IEnumerable<QLNhaTro_API.Models.TaiKhoan>
+@using System.Globalization
+@{
+    ViewBag.Title = "Tài Khoản";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<p style="text-align:right;margin:20px;">
+    <a href="@Url.Action("Create","TaiKhoans")" class="btn btn-primary">Tạo mới</a>
+</p>
+<table class="table" id="myTable">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.HoTen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sdt)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiaChi)
+            </th>
+            <th>Thao tác</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Sdt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.DiaChi)
+            </td>
+            <td>
+                <a class="btn btn-sm btn-success" href="@Url.Action("Edit","TaiKhoans",new { @id = item.IdTaiKhoan })">
+                    <i class="fas fa-edit"></i>
+                </a>
+                <a class="btn btn-sm btn-danger" href="@Url.Action("Delete","TaiKhoans",new { @id = item.IdTaiKhoan })">
+                    <i class="fas fa-trash-alt"></i>
+                </a>
+                <a class="btn btn-sm btn-info" href="@Url.Action("Details","TaiKhoans",new { @id = item.IdTaiKhoan })">
+                    <i class="fas fa-info-circle"></i>
+                </a>
+            </td>
+        </tr>
+        }
+    </tbody>
+</table>
+
+
+<script>
+    jQuery(document).ready(function () {
+        $('#myTable').DataTable({
+            "language": {
+                "url": "//cdn.datatables.net/plug-ins/1.10.22/i18n/Vietnamese.json"
+            }
+        });
+    });
+</script>
