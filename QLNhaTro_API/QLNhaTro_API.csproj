@@ -137,11 +137,13 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\ChiTietHoaDonsController.cs" />
     <Compile Include="Controllers\DichVusController.cs" />
     <Compile Include="Controllers\HoaDonDichVusController.cs" />
     <Compile Include="Controllers\KhachHangsController.cs" />
+    <Compile Include="Controllers\PHONGController.cs" />
     <Compile Include="Controllers\PhongsController.cs" />
     <Compile Include="Controllers\TaiKhoansController.cs" />
     <Compile Include="Controllers\ThuePhongsController.cs" />

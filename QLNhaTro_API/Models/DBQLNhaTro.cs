@@ -1,7 +1,4 @@
-using System;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
-using System.Linq;
 
 namespace QLNhaTro_API.Models
 {
@@ -10,6 +7,7 @@ namespace QLNhaTro_API.Models
         public DBQLNhaTro()
             : base("name=DBQLNhaTro")
         {
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public virtual DbSet<ChiTietHoaDon> ChiTietHoaDons { get; set; }
