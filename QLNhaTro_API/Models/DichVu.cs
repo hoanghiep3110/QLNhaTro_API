@@ -1,11 +1,9 @@
-﻿namespace QLNhaTro_API.Models
-{
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
+namespace QLNhaTro_API.Models
+{
     [Table("DichVu")]
     public partial class DichVu
     {
