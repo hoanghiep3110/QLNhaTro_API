@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QLNhaTro_API.Models
@@ -7,13 +6,6 @@ namespace QLNhaTro_API.Models
     [Table("KhachHang")]
     public partial class KhachHang
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public KhachHang()
-        {
-            HoaDonDichVus = new HashSet<HoaDonDichVu>();
-            ThuePhongs = new HashSet<ThuePhong>();
-        }
-
         [Key]
         public int IdKhachHang { get; set; }
 
@@ -43,11 +35,5 @@ namespace QLNhaTro_API.Models
         [Required]
         [StringLength(10)]
         public string SoCMND { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HoaDonDichVu> HoaDonDichVus { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ThuePhong> ThuePhongs { get; set; }
     }
 }

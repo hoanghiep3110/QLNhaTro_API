@@ -7,12 +7,6 @@ namespace QLNhaTro_API.Models
     [Table("HoaDonDichVu")]
     public partial class HoaDonDichVu
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public HoaDonDichVu()
-        {
-            ChiTietHoaDons = new HashSet<ChiTietHoaDon>();
-        }
-
         [Key]
         public int IdHoaDon { get; set; }
 
@@ -30,9 +24,6 @@ namespace QLNhaTro_API.Models
 
         [Display(Name = "TRẠNG THÁI")]
         public bool TrangThaiThanhToan { get; set; }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
 
         public virtual KhachHang KhachHang { get; set; }
 

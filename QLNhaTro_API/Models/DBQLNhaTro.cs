@@ -21,19 +21,19 @@ namespace QLNhaTro_API.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<DichVu>()
-                .HasMany(e => e.ChiTietHoaDons)
-                .WithRequired(e => e.DichVu)
-                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<DichVu>();
+            //.HasMany(e => e.ChiTietHoaDons)
+            //.WithRequired(e => e.DichVu)
+            //.WillCascadeOnDelete(false);
 
             modelBuilder.Entity<HoaDonDichVu>()
                 .Property(e => e.TienThanhToan)
                 .IsFixedLength();
 
-            modelBuilder.Entity<HoaDonDichVu>()
-                .HasMany(e => e.ChiTietHoaDons)
-                .WithRequired(e => e.HoaDonDichVu)
-                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<HoaDonDichVu>();
+            //.HasMany(e => e.ChiTietHoaDons)
+            //.WithRequired(e => e.HoaDonDichVu)
+            //.WillCascadeOnDelete(false);
 
             modelBuilder.Entity<KhachHang>()
                 .Property(e => e.GioiTinh)
@@ -52,25 +52,25 @@ namespace QLNhaTro_API.Models
                 .IsFixedLength()
                 .IsUnicode(false);
 
-            modelBuilder.Entity<KhachHang>()
-                .HasMany(e => e.HoaDonDichVus)
-                .WithRequired(e => e.KhachHang)
-                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<KhachHang>();
+            //.HasMany(e => e.HoaDonDichVus)
+            //.WithRequired(e => e.KhachHang)
+            //.WillCascadeOnDelete(false); 
 
-            modelBuilder.Entity<KhachHang>()
-                .HasMany(e => e.ThuePhongs)
-                .WithRequired(e => e.KhachHang)
-                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<KhachHang>();
+            //.HasMany(e => e.ThuePhongs)
+            //.WithRequired(e => e.KhachHang)
+            //.WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Phong>()
-                .HasMany(e => e.HoaDonDichVus)
-                .WithRequired(e => e.Phong)
-                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Phong>();
+            //.HasMany(e => e.HoaDonDichVus)
+            //.WithRequired(e => e.Phong)
+            //.WillCascadeOnDelete(false);
 
-            modelBuilder.Entity<Phong>()
-                .HasMany(e => e.ThuePhongs)
-                .WithRequired(e => e.Phong)
-                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<Phong>();
+            //.HasMany(e => e.ThuePhongs)
+            //.WithRequired(e => e.Phong)
+            //.WillCascadeOnDelete(false);
 
             modelBuilder.Entity<TaiKhoan>()
                 .Property(e => e.Username)
@@ -80,10 +80,10 @@ namespace QLNhaTro_API.Models
                 .Property(e => e.Password)
                 .IsUnicode(false);
 
-            modelBuilder.Entity<TaiKhoan>()
-                .HasMany(e => e.HoaDonDichVus)
-                .WithRequired(e => e.TaiKhoan)
-                .WillCascadeOnDelete(false);
+            modelBuilder.Entity<TaiKhoan>();
+            //.HasMany(e => e.HoaDonDichVus)
+            //.WithRequired(e => e.TaiKhoan)
+            //.WillCascadeOnDelete(false);
         }
     }
 }

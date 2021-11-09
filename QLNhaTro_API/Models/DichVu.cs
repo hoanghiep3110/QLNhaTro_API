@@ -7,12 +7,6 @@ namespace QLNhaTro_API.Models
     [Table("DichVu")]
     public partial class DichVu
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public DichVu()
-        {
-            ChiTietHoaDons = new HashSet<ChiTietHoaDon>();
-        }
-
         [Key]
         public int IdDichVu { get; set; }
 
@@ -24,7 +18,5 @@ namespace QLNhaTro_API.Models
         [Display(Name = "ĐƠN GIÁ")]
         public int DonGia { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ChiTietHoaDon> ChiTietHoaDons { get; set; }
     }
 }

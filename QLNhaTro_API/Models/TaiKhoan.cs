@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace QLNhaTro_API.Models
@@ -7,11 +6,6 @@ namespace QLNhaTro_API.Models
     [Table("TaiKhoan")]
     public partial class TaiKhoan
     {
-        public TaiKhoan()
-        {
-            HoaDonDichVus = new HashSet<HoaDonDichVu>();
-        }
-
         [Key]
         public int IdTaiKhoan { get; set; }
 
@@ -38,7 +32,5 @@ namespace QLNhaTro_API.Models
         [StringLength(255)]
         public string Password { get; set; }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<HoaDonDichVu> HoaDonDichVus { get; set; }
     }
 }
