@@ -157,6 +157,7 @@
     <Compile Include="Models\DichVu.cs" />
     <Compile Include="Models\HoaDonDichVu.cs" />
     <Compile Include="Models\KhachHang.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Phong.cs" />
     <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\TaiKhoan.cs" />

@@ -5,49 +5,69 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<p style="text-align:right;margin:20px;">
+<p style="text-align:right;margin:10px;">
     <a href="@Url.Action("Create","Phongs")" class="btn btn-primary">Tạo mới</a>
 </p>
-<table class="table" id="myTable">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TenPhong)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
-            </th>
-            <th>Thao tác</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TenPhong)
-                </td>
-                <td>
+<div class="row mx-3">
+    <div class="container col-12 border border-1 shadow rounded rounded-3">
+        <div class="row my-3">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-2 col-12">
                     @if (item.TrangThai == true)
-                    {<i class="fas fa-check-circle text-success"></i><b><span style="color:green; padding: 5px">ĐÃ CÓ NGƯỜI</span></b>}
+                    {
+                        <div class="card" style="opacity:0.4">
+                            <div class="card-body text-center">
+                                <h1 class="card-title">@Html.DisplayFor(modelItem => item.TenPhong)</h1>
+                                <div>
+                                    @if (item.TrangThai == true)
+                                    {<i class="fas fa-check-circle text-success"></i><b><span style="color:green; padding: 5px">ĐÃ CÓ NGƯỜI</span></b>}
+                                    else
+                                    {<i class="fas fa-times-circle text-danger"></i><b><span style="color:red; padding: 5px">PHÒNG ĐANG TRỐNG</span></b>}
+                                    <hr />
+                                    <div>
+                                        <a class="btn btn-sm btn-success" href="@Url.Action("Edit","Phongs",new { @id = item.IdPhong })">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-sm btn-danger" href="@Url.Action("Delete","Phongs",new { @id = item.IdPhong })">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                        <a class="btn btn-sm btn-info" href="@Url.Action("Details","Phongs",new { @id = item.IdPhong })">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>}
                     else
-                    {<i class="fas fa-times-circle text-danger"></i><b><span style="color:red; padding: 5px">PHÒNG ĐANG TRỐNG</span></b>}
-                </td>  
-                <td>
-                    <a class="btn btn-sm btn-success" href="@Url.Action("Edit","Phongs",new { @id = item.IdPhong })">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    <a class="btn btn-sm btn-danger" href="@Url.Action("Delete","Phongs",new { @id = item.IdPhong })">
-                        <i class="fas fa-trash-alt"></i>
-                    </a>
-                    <a class="btn btn-sm btn-info" href="@Url.Action("Details","Phongs",new { @id = item.IdPhong })">
-                        <i class="fas fa-info-circle"></i>
-                    </a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+                    {
+                        <div class="card">
+                            <div class="card-body text-center">
+                                <h1 class="card-title">@Html.DisplayFor(modelItem => item.TenPhong)</h1>
+                                <div>
+                                    @if (item.TrangThai == true)
+                                    {<i class="fas fa-check-circle text-success"></i><b><span style="color:green; padding: 5px">ĐÃ CÓ NGƯỜI</span></b>}
+                                    else
+                                    {<i class="fas fa-times-circle text-danger"></i><b><span style="color:red; padding: 5px">PHÒNG ĐANG TRỐNG</span></b>}
+                                    <hr />
+                                    <div>
+                                        <a class="btn btn-sm btn-success" href="@Url.Action("Edit","Phongs",new { @id = item.IdPhong })">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <a class="btn btn-sm btn-danger" href="@Url.Action("Delete","Phongs",new { @id = item.IdPhong })">
+                                            <i class="fas fa-trash-alt"></i>
+                                        </a>
+                                        <a class="btn btn-sm btn-info" href="@Url.Action("Details","Phongs",new { @id = item.IdPhong })">
+                                            <i class="fas fa-info-circle"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>}
+                </div>}
+        </div>
+    </div>
+</div>
 
 
 <script>
