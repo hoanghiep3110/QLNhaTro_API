@@ -134,8 +134,13 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="APIController\CHITIETHOADONController.cs" />
+    <Compile Include="APIController\DICHVUController.cs" />
+    <Compile Include="APIController\HOADONController.cs" />
+    <Compile Include="APIController\KHACHHANGController.cs" />
     <Compile Include="APIController\PHONGController.cs" />
     <Compile Include="APIController\TAIKHOANController.cs" />
+    <Compile Include="APIController\THUEPHONGController.cs" />
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
@@ -143,7 +148,6 @@
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Controllers\ChiTietHoaDonsController.cs" />
-    <Compile Include="Controllers\DefaultController.cs" />
     <Compile Include="Controllers\DichVusController.cs" />
     <Compile Include="Controllers\HoaDonDichVusController.cs" />
     <Compile Include="Controllers\KhachHangsController.cs" />
@@ -159,8 +163,8 @@
     <Compile Include="Models\DichVu.cs" />
     <Compile Include="Models\HoaDonDichVu.cs" />
     <Compile Include="Models\KhachHang.cs" />
+    <Compile Include="Models\Message.cs" />
     <Compile Include="Models\Phong.cs" />
-    <Compile Include="Models\sysdiagram.cs" />
     <Compile Include="Models\TaiKhoan.cs" />
     <Compile Include="Models\ThuePhong.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

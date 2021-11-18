@@ -1,7 +1,6 @@
 ﻿using QLNhaTro_API.Helper;
 using QLNhaTro_API.Models;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 
@@ -11,25 +10,33 @@ namespace QLNhaTro_API.APIController
     {
         DBQLNhaTro db = new DBQLNhaTro();
         // GET: api/TAIKHOAN
-        public IEnumerable<TaiKhoan> Get()
+        [HttpGet]
+        public IHttpActionResult Get()
         {
-            return db.TaiKhoans.ToList();
+            return Ok(db.TaiKhoans.ToList());
         }
 
         // GET: api/TAIKHOAN/5
-        public TaiKhoan Get(int id)
+        [HttpGet]
+        public IHttpActionResult Get(int id)
         {
-            return db.TaiKhoans.SingleOrDefault(p => p.IdTaiKhoan == id);
+            TaiKhoan taiKhoan = db.TaiKhoans.SingleOrDefault(p => p.IdTaiKhoan == id);
+            if (taiKhoan == null)
+            {
+                return BadRequest();
+            }
+            return Ok(taiKhoan);
         }
 
         // POST: api/TAIKHOAN
-        public int Post(TaiKhoan taiKhoan)
+        [HttpPost]
+        public IHttpActionResult Post(TaiKhoan taiKhoan)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return 0;
+                    return Ok(new Message(0, "Thêm tài khoản không thành công. Vui lòng thử lại"));
                 }
                 db.TaiKhoans.Add(taiKhoan);
                 taiKhoan.Password = MD5Helper.MD5Hash(taiKhoan.Password);
@@ -37,22 +44,23 @@ namespace QLNhaTro_API.APIController
             }
             catch (Exception)
             {
-                return 0;
+                return Ok(new Message(0, "Thêm tài khoản không thành công. Vui lòng thử lại"));
             }
-            return 1;
+            return Ok(new Message(1, "Thêm tài khoản thành công"));
         }
 
         // PUT: api/TAIKHOAN/5
-        public int Put(int id, TaiKhoan newTaikhoan)
+        [HttpPut]
+        public IHttpActionResult Put(int id, TaiKhoan newTaikhoan)
         {
             if (!ModelState.IsValid)
             {
-                return 0;
+                return Ok(new Message(0, "Thay đổi thông tin thất bại. Vui lòng kiểm tra và thử lại"));
             }
             var taiKhoan = db.TaiKhoans.Find(id);
             if(taiKhoan == null)
             {
-                return -1;
+                return Ok(new Message(2, "Không tìm tài khoản cần thay đổi thông tin. Vui lòng kiểm tra và thử lại"));
             }
             taiKhoan.HoTen = newTaikhoan.HoTen;
             taiKhoan.Sdt = newTaikhoan.Sdt;
@@ -60,16 +68,25 @@ namespace QLNhaTro_API.APIController
             taiKhoan.Username = newTaikhoan.Username;
             taiKhoan.Password = MD5Helper.MD5Hash(newTaikhoan.Password);
             db.SaveChanges();
-            return 1;
+            return Ok(new Message(1, "Thay đổi thông tin thành công"));
         }
 
         // DELETE: api/TAIKHOAN/5
-        public int Delete(int id)
+        [HttpDelete]
+        public IHttpActionResult Delete(int id)
         {
+            if (!ModelState.IsValid)
+            {
+                return Ok(new Message(0, "Xoá thất bại. Vui lòng kiểm tra và thử lại"));
+            }
             TaiKhoan taiKhoan = db.TaiKhoans.Find(id);
+            if (taiKhoan == null)
+            {
+                return Ok(new Message(2, "Không tìm phòng cần xoá. Vui lòng kiểm tra và thử lại"));
+            }
             db.TaiKhoans.Remove(taiKhoan);
             db.SaveChanges();
-            return 1;
+            return Ok(new Message(1, "Xoá thành công"));
         }
     }
 }

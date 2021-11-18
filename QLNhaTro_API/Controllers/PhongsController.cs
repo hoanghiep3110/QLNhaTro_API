@@ -38,8 +38,6 @@ namespace QLNhaTro_API.Controllers
         }
 
         // POST: Phongs/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdPhong,TenPhong,TrangThai")] Phong phong)
@@ -70,8 +68,6 @@ namespace QLNhaTro_API.Controllers
         }
 
         // POST: Phongs/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdPhong,TenPhong,TrangThai")] Phong phong)

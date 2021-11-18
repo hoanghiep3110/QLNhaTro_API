@@ -1,9 +1,9 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
 namespace QLNhaTro_API.Models
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     [Table("ChiTietHoaDon")]
     public partial class ChiTietHoaDon
     {

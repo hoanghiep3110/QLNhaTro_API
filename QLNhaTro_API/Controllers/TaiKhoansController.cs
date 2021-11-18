@@ -38,8 +38,6 @@ namespace QLNhaTro_API.Controllers
         }
 
         // POST: TaiKhoans/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdTaiKhoan,HoTen,Sdt,DiaChi,Username,Password")] TaiKhoan taiKhoan)
@@ -70,9 +68,6 @@ namespace QLNhaTro_API.Controllers
         }
 
         // POST: TaiKhoans/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdTaiKhoan,HoTen,Sdt,DiaChi,Username,Password")] TaiKhoan taiKhoan)
         {
