@@ -58,7 +58,7 @@ namespace QLNhaTro_API.APIController
             var khachhang = db.KhachHangs.Find(id);
             if (khachhang == null)
             {
-                return Ok(new Message(2, "Không tìm khách hàng cần thay đổi thông tin. Vui lòng kiểm tra và thử lại"));
+                return Ok(new Message(2, "Không tìm thấy khách hàng cần thay đổi thông tin. Vui lòng kiểm tra và thử lại"));
             }
             khachhang.HoTen = khachHang.HoTen;
             khachhang.Sdt = khachHang.Sdt; ;
@@ -81,7 +81,7 @@ namespace QLNhaTro_API.APIController
             KhachHang khachHang = db.KhachHangs.Find(id);
             if (khachHang == null)
             {
-                return Ok(new Message(2, "Không tìm phòng cần xoá. Vui lòng kiểm tra và thử lại"));
+                return Ok(new Message(2, "Không tìm thấy phòng cần xoá. Vui lòng kiểm tra và thử lại"));
             }
             db.KhachHangs.Remove(khachHang);
             db.SaveChanges();

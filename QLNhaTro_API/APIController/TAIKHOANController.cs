@@ -82,7 +82,7 @@ namespace QLNhaTro_API.APIController
             TaiKhoan taiKhoan = db.TaiKhoans.Find(id);
             if (taiKhoan == null)
             {
-                return Ok(new Message(2, "Không tìm phòng cần xoá. Vui lòng kiểm tra và thử lại"));
+                return Ok(new Message(2, "Không tìm thấy tài khoản cần xoá. Vui lòng kiểm tra và thử lại"));
             }
             db.TaiKhoans.Remove(taiKhoan);
             db.SaveChanges();

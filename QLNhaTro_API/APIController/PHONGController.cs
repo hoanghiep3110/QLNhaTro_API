@@ -59,7 +59,7 @@ namespace QLNhaTro_API.APIController
             var phong = db.Phongs.Find(id);
             if (phong == null)
             {
-                return Ok(new Message(2, "Không tìm phòng cần thay đổi thông tin. Vui lòng kiểm tra và thử lại"));
+                return Ok(new Message(2, "Không tìm thấy phòng cần thay đổi thông tin. Vui lòng kiểm tra và thử lại"));
             }
             phong.TenPhong = newPhong.TenPhong;
             phong.TrangThai = newPhong.TrangThai;
@@ -78,7 +78,7 @@ namespace QLNhaTro_API.APIController
             Phong phong = db.Phongs.Find(id);
             if(phong == null)
             {
-                return Ok(new Message(2, "Không tìm phòng cần xoá. Vui lòng kiểm tra và thử lại"));
+                return Ok(new Message(2, "Không tìm thấy phòng cần xoá. Vui lòng kiểm tra và thử lại"));
             }
             db.Phongs.Remove(phong);
             db.SaveChanges();
