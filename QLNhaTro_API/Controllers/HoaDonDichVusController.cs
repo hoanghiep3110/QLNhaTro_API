@@ -34,32 +34,32 @@ namespace QLNhaTro_API.Controllers
             return View(chiTietHoaDon);
         }
 
-        // GET: HoaDonDichVus/Create
-        public ActionResult Create()
-        {
-            ViewBag.IdKhachHang = new SelectList(db.KhachHangs, "IdKhachHang", "HoTen");
-            ViewBag.IdPhong = new SelectList(db.Phongs, "IdPhong", "TenPhong");
-            ViewBag.IdTaiKhoan = new SelectList(db.TaiKhoans, "IdTaiKhoan", "HoTen");
-            return View();
-        }
+        //// GET: HoaDonDichVus/Create
+        //public ActionResult Create()
+        //{
+        //    ViewBag.IdKhachHang = new SelectList(db.KhachHangs, "IdKhachHang", "HoTen");
+        //    ViewBag.IdPhong = new SelectList(db.Phongs, "IdPhong", "TenPhong");
+        //    ViewBag.IdTaiKhoan = new SelectList(db.TaiKhoans, "IdTaiKhoan", "HoTen");
+        //    return View();
+        //}
 
-        // POST: HoaDonDichVus/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdHoaDon,IdDichVu,IdTaiKhoan,IdPhong,IdKhachHang,TienThanhToan,TrangThaiThanhToan")] HoaDonDichVu hoaDonDichVu)
-        {
-            if (ModelState.IsValid)
-            {
-                db.HoaDonDichVus.Add(hoaDonDichVu);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+        //// POST: HoaDonDichVus/Create
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Create([Bind(Include = "IdHoaDon,IdDichVu,IdTaiKhoan,IdPhong,IdKhachHang,TienThanhToan,TrangThaiThanhToan")] HoaDonDichVu hoaDonDichVu)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        db.HoaDonDichVus.Add(hoaDonDichVu);
+        //        db.SaveChanges();
+        //        return RedirectToAction("Index");
+        //    }
 
-            ViewBag.IdKhachHang = new SelectList(db.KhachHangs, "IdKhachHang", "HoTen", hoaDonDichVu.IdKhachHang);
-            ViewBag.IdPhong = new SelectList(db.Phongs, "IdPhong", "TenPhong", hoaDonDichVu.IdPhong);
-            ViewBag.IdTaiKhoan = new SelectList(db.TaiKhoans, "IdTaiKhoan", "HoTen", hoaDonDichVu.IdTaiKhoan);
-            return View(hoaDonDichVu);
-        }
+        //    ViewBag.IdKhachHang = new SelectList(db.KhachHangs, "IdKhachHang", "HoTen", hoaDonDichVu.IdKhachHang);
+        //    ViewBag.IdPhong = new SelectList(db.Phongs, "IdPhong", "TenPhong", hoaDonDichVu.IdPhong);
+        //    ViewBag.IdTaiKhoan = new SelectList(db.TaiKhoans, "IdTaiKhoan", "HoTen", hoaDonDichVu.IdTaiKhoan);
+        //    return View(hoaDonDichVu);
+        //}
 
         // GET: HoaDonDichVus/Edit/5
         public ActionResult Edit(int? id)

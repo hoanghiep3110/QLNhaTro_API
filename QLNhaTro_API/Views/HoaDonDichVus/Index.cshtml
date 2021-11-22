@@ -5,10 +5,7 @@
     ViewBag.Title = "Hoá Đơn Dịch Vụ";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
-
-<p style="text-align:right;margin:20px;">
-    <a href="@Url.Action("Create","HoaDonDichVus")" class="btn btn-primary">Tạo mới</a>
-</p>
+<br />
 <table class="table" id="myTable">
     <thead>
         <tr>
@@ -22,10 +19,10 @@
                 NGƯỜI THU TIỀN
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TienThanhToan)
+                TIỀN THANH TOÁN
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TrangThaiThanhToan)
+                TRẠNG THÁI THANH TOÁN
             </th>
             <th>Thao tác</th>
         </tr>

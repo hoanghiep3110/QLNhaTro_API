@@ -1,11 +1,15 @@
 namespace QLNhaTro_API.Models
 {
+    using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity.Spatial;
 
     [Table("HoaDonDichVu")]
     public partial class HoaDonDichVu
     {
+
         [Key]
         public int IdHoaDon { get; set; }
 
@@ -15,8 +19,7 @@ namespace QLNhaTro_API.Models
 
         public int IdKhachHang { get; set; }
 
-        [StringLength(10)]
-        public string TienThanhToan { get; set; }
+        public int TienThanhToan { get; set; }
 
         public bool TrangThaiThanhToan { get; set; }
 

@@ -38,8 +38,8 @@ namespace QLNhaTro_API.APIController
                 {
                     return Ok(new Message(0, "Thêm tài khoản không thành công. Vui lòng thử lại"));
                 }
-                db.TaiKhoans.Add(taiKhoan);
                 taiKhoan.Password = MD5Helper.MD5Hash(taiKhoan.Password);
+                db.TaiKhoans.Add(taiKhoan);
                 db.SaveChanges();
             }
             catch (Exception)

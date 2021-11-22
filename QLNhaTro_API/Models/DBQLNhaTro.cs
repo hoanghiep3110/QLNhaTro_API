@@ -1,4 +1,7 @@
+using System;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Entity;
+using System.Linq;
 
 namespace QLNhaTro_API.Models
 {
@@ -8,6 +11,7 @@ namespace QLNhaTro_API.Models
             : base("name=DBQLNhaTro")
         {
         }
+
         public virtual DbSet<ChiTietHoaDon> ChiTietHoaDons { get; set; }
         public virtual DbSet<DichVu> DichVus { get; set; }
         public virtual DbSet<HoaDonDichVu> HoaDonDichVus { get; set; }
@@ -19,13 +23,9 @@ namespace QLNhaTro_API.Models
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             //modelBuilder.Entity<DichVu>()
-            //    ////.HasMany(e => e.ChiTietHoaDons)
-            //    ////.WithRequired(e => e.DichVu)
-            //    //.WillCascadeOnDelete(false);
-
-            modelBuilder.Entity<HoaDonDichVu>()
-                .Property(e => e.TienThanhToan)
-                .IsFixedLength();
+            //    .HasMany(e => e.ChiTietHoaDons)
+            //    .WithRequired(e => e.DichVu)
+            //    .WillCascadeOnDelete(false);
 
             //modelBuilder.Entity<HoaDonDichVu>()
             //    .HasMany(e => e.ChiTietHoaDons)

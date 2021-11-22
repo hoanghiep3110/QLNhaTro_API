@@ -47,7 +47,13 @@ namespace QLNhaTro_API.Controllers
         {
             if (ModelState.IsValid)
             {
+                Phong phong = db.Phongs.Find(thuePhong.IdPhong);
+                if (phong.IdPhong == thuePhong.IdPhong)
+                {
+                    phong.TrangThai = 1;
+                }
                 db.ThuePhongs.Add(thuePhong);
+                AddInvoice(thuePhong.IdPhong, thuePhong.IdKhachHang);
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
@@ -123,6 +129,19 @@ namespace QLNhaTro_API.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        //Hàm thêm hoá đơn
+        public void AddInvoice(int idphong, int idkhachhang)
+        {
+            var hoadon = new HoaDonDichVu();
+            //var user = new TaiKhoan();
+            hoadon.IdTaiKhoan  = int.Parse(Session["UserAdmin"].ToString());
+            hoadon.IdKhachHang = idkhachhang;
+            hoadon.IdPhong = idphong;
+            hoadon.TienThanhToan = 0;
+            hoadon.TrangThaiThanhToan = false;
+            db.HoaDonDichVus.Add(hoadon);
         }
     }
 }

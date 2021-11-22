@@ -44,6 +44,7 @@ namespace QLNhaTro_API.Controllers
         {
             if (ModelState.IsValid)
             {
+                phong.TrangThai = 0;
                 db.Phongs.Add(phong);
                 db.SaveChanges();
                 return RedirectToAction("Index");

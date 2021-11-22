@@ -24,6 +24,8 @@ namespace QLNhaTro_API.APIController
             {
                 return NotFound();
             }
+            
+            // Return
             return Ok(phong);
         }
 
@@ -36,53 +38,103 @@ namespace QLNhaTro_API.APIController
                 if (!ModelState.IsValid)
                 {
                     return Ok(new Message(0, "Thêm phòng không thành công. Vui lòng thử lại"));
-                }   
-                phong.TrangThai = false;
-                db.Phongs.Add(phong);         
+                }
+                phong.TrangThai = 0;
+                db.Phongs.Add(phong);
                 db.SaveChanges();
+                return Ok(new Message(1, "Thêm phòng thành công"));
             }
             catch (Exception)
             {
                 return Ok(new Message(0, "Thêm phòng không thành công. Vui lòng thử lại"));
             }
-            return Ok(new Message(1, "Thêm phòng thành công"));
         }
 
         // PUT: api/PHONG/5
         [HttpPut]
         public IHttpActionResult Put(int id, Phong newPhong)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return Ok(new Message(0, "Thay đổi thông tin thất bại. Vui lòng kiểm tra và thử lại"));
+                if (!ModelState.IsValid)
+                {
+                    return Ok(new Message(0, "Thay đổi thông tin thất bại. Vui lòng kiểm tra và thử lại"));
+                }
+                var phong = db.Phongs.Find(id);
+                if (phong == null)
+                {
+                    return Ok(new Message(2, "Không tìm thấy phòng cần thay đổi thông tin. Vui lòng kiểm tra và thử lại"));
+                }
+                phong.TenPhong = newPhong.TenPhong;
+                phong.TrangThai = newPhong.TrangThai;
+                db.SaveChanges();
+
+                // Return
+                return Ok(new Message(1, "Thay đổi thông tin thành công"));
             }
-            var phong = db.Phongs.Find(id);
-            if (phong == null)
+            catch (Exception )
             {
-                return Ok(new Message(2, "Không tìm thấy phòng cần thay đổi thông tin. Vui lòng kiểm tra và thử lại"));
+                return Ok(new Message(0, "Thay đổi phòng không thành công. Vui lòng thử lại"));
             }
-            phong.TenPhong = newPhong.TenPhong;
-            phong.TrangThai = newPhong.TrangThai;
-            db.SaveChanges();
-            return Ok(new Message(1, "Thay đổi thông tin thành công"));
         }
 
         // DELETE: api/PHONG/5
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
-            if(!ModelState.IsValid)
+            try
             {
-                return Ok(new Message(0, "Xoá thất bại. Vui lòng kiểm tra và thử lại"));
+                if (!ModelState.IsValid)
+                {
+                    return Ok(new Message(0, "Xoá thất bại. Vui lòng kiểm tra và thử lại"));
+                }
+                Phong phong = db.Phongs.Find(id);
+                if (phong == null)
+                {
+                    return Ok(new Message(2, "Không tìm thấy phòng cần xoá. Vui lòng kiểm tra và thử lại"));
+                }
+                db.Phongs.Remove(phong);
+                db.SaveChanges();
+                return Ok(new Message(1, "Xoá thành công"));
             }
-            Phong phong = db.Phongs.Find(id);
-            if(phong == null)
+            catch (Exception)
             {
-                return Ok(new Message(2, "Không tìm thấy phòng cần xoá. Vui lòng kiểm tra và thử lại"));
+                return Ok(new Message(0, "Xóa phòng không thành công. Vui lòng thử lại"));
             }
-            db.Phongs.Remove(phong);
-            db.SaveChanges();
-            return Ok(new Message(1, "Xoá thành công"));
         }
+
+        //public IHttpActionResult test(int id)
+        //{
+        //    try
+        //    {
+        //        // Begin transaction
+        //        db.Connection.Open();
+        //        System.Data.Common.DbTransaction trans = db.Connection.BeginTransaction();
+        //        db.Transaction = trans;
+        //        // Processing
+        //        if (!ModelState.IsValid)
+        //        {
+        //            return Ok(new Message(0, "Xoá thất bại. Vui lòng kiểm tra và thử lại"));
+        //        }
+        //        Phong phong = db.Phongs.Find(id);
+        //        if (phong == null)
+        //        {
+        //            return Ok(new Message(2, "Không tìm thấy phòng cần xoá. Vui lòng kiểm tra và thử lại"));
+        //        }
+        //        db.Phongs.Remove(phong);
+        //        db.SaveChanges();
+        //        // Commit data
+        //        trans.Commit();
+        //        // Return
+        //        return Ok(new Message(1, "Xoá thành công"));
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Case: Error, then rollback database
+        //        if (trans != null)
+        //            trans.Rollback();
+        //        return Ok(new Message(0, "Xóa phòng không thành công. Vui lòng thử lại"));
+        //    }
+        //}
     }
 }

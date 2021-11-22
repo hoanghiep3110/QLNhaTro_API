@@ -14,7 +14,12 @@ namespace QLNhaTro_API.APIController
         // GET: api/HOADON
         public IEnumerable<HoaDonDichVu> Get()
         {
-            return db.HoaDonDichVus.ToList();
+            var list = db.HoaDonDichVus.ToList();
+            foreach (var item in list)
+            {
+                item.TaiKhoan.IdTaiKhoan = -1;
+            }
+            return list;
         }
 
         // GET: api/HOADON/5

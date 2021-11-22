@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using QLNhaTro_API.Helper;
 using QLNhaTro_API.Models;
 
 namespace QLNhaTro_API.Controllers
@@ -44,6 +45,7 @@ namespace QLNhaTro_API.Controllers
         {
             if (ModelState.IsValid)
             {
+                taiKhoan.Password = MD5Helper.MD5Hash(taiKhoan.Password);
                 db.TaiKhoans.Add(taiKhoan);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -53,6 +55,7 @@ namespace QLNhaTro_API.Controllers
         }
 
         // GET: TaiKhoans/Edit/5
+        [HttpGet]
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -68,6 +71,7 @@ namespace QLNhaTro_API.Controllers
         }
 
         // POST: TaiKhoans/Edit/5
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdTaiKhoan,HoTen,Sdt,DiaChi,Username,Password")] TaiKhoan taiKhoan)
         {
