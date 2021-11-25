@@ -7,70 +7,110 @@
 
 <h2>Create</h2>
 
-@using (Html.BeginForm()) 
+@using (Html.BeginForm("Create", "KhachHangs", FormMethod.Post, new { @enctype = "multipart/form-data" })) 
 {
     @Html.AntiForgeryToken()
     
-    <div class="form-horizontal">
-        <h4>KhachHang</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.HoTen, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
-            </div>
+<div class="form-horizontal">
+    <h4>KhachHang</h4>
+    <hr />
+    @if (ViewBag.Error != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.Error
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.Sdt, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Sdt, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Sdt, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.GioiTinh, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.QueQuan, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.QueQuan, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.QueQuan, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.HKTT, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.HKTT, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.HKTT, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.SoCMND, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.SoCMND, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.SoCMND, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
-            </div>
+    }
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    <div class="form-group">
+        @Html.LabelFor(model => model.HoTen, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.HoTen, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.HoTen, "", new { @class = "text-danger" })
         </div>
     </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Sdt, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Sdt, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Sdt, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.GioiTinh, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.GioiTinh, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.GioiTinh, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.QueQuan, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.QueQuan, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.QueQuan, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.HKTT, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.HKTT, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.HKTT, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(model => model.SoCMND, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            <input type="file" name="fileUpload" id="fileUpload">
+            <div class="image-preview" id="imagePreview">
+                <img src="" alt="Image Preview" class="image-preview-img" />
+                <span class="image-preview-text">Image Preview</span>
+            </div>
+            @*@Html.EditorFor(model => model.SoCMND, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.SoCMND, "", new { @class = "text-danger" })*@
+        </div>
+    </div>
+    @if (ViewBag.Error1 != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.Error1
+        </div>
+    }
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Create" class="btn btn-default" />
+        </div>
+    </div>
+</div>
 }
 
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+<script>
+    var fileUpload = document.getElementById("fileUpload");
+    var previewContainer = document.getElementById("imagePreview");
+    var previewImage = previewContainer.querySelector(".image-preview-img");
+    var previewText = previewContainer.querySelector(".image-preview-text");
+
+    fileUpload.addEventListener("change", function () {
+        var file = this.files[0] ;
+        if (file) {
+            var reader = new FileReader();
+            previewText.style.display = "none";
+            previewImage.style.display = "block";
+            reader.readAsDataURL(file);
+            reader.addEventListener("load", function () {
+                previewImage.setAttribute("src", this.result);
+            });
+        }
+        else {
+            previewText.style.display = null;
+            previewImage.style.display = null;
+            previewImage.setAttribute("src", this.result);
+        }
+    });
+</script>

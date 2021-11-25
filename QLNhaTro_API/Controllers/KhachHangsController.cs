@@ -1,8 +1,14 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using System.Diagnostics;
+using QLNhaTro_API.Helper;
 using QLNhaTro_API.Models;
+using System.Data.Entity.Migrations;
 
 namespace QLNhaTro_API.Controllers
 {
@@ -40,20 +46,40 @@ namespace QLNhaTro_API.Controllers
         // POST: KhachHangs/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdKhachHang,HoTen,Sdt,GioiTinh,QueQuan,HKTT,SoCMND")] KhachHang khachHang)
+        public ActionResult Create([Bind(Include = "IdKhachHang,HoTen,Sdt,GioiTinh,QueQuan,HKTT,SoCMND")] KhachHang khachHang, HttpPostedFileBase fileUpload)
         {
             if (ModelState.IsValid)
             {
-                db.KhachHangs.Add(khachHang);
-                db.SaveChanges();
+                ////var khachhang = db.KhachHangs.Where(p => p.Sdt == khachHang.Sdt).SingleOrDefault();
+                //if (khachhang!=null || fileUpload == null)
+                //{
+                //    ViewBag.Error = "Khách hàng đã tồn tại";
+                //    return View(khachHang);
+                //}
+                if (fileUpload != null)
+                {
+                    var extension = Path.GetExtension(fileUpload.FileName);
+                    if (!fileUpload.ContentType.Contains("image"))
+                    { 
+                        ViewBag.Error1 = "File hình không hợp lệ";
+                        return View(khachHang);
+                        throw new Exception("File hình không hợp lệ");
+                    }
+                    if (fileUpload.ContentLength > 3 * 1024 * 1024) throw new Exception("Hình ảnh vượt quá 3Mb");
+                    String _FileName = null;
+                    _FileName = Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen.ToLower()) + "-anhCMND" + extension);
+                    string _path = Path.Combine(Server.MapPath("~/Content/imgCMND/"), _FileName);
+                    fileUpload.SaveAs(_path);
+                    khachHang.SoCMND ="/Content/imgCMND/" + _FileName;
+                    db.KhachHangs.Add(khachHang);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
-
             return View(khachHang);
         }
-
-        // GET: KhachHangs/Edit/5
-        public ActionResult Edit(int? id)
+            // GET: KhachHangs/Edit/5
+            public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -70,13 +96,38 @@ namespace QLNhaTro_API.Controllers
         // POST: KhachHangs/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdKhachHang,HoTen,Sdt,GioiTinh,QueQuan,HKTT,SoCMND")] KhachHang khachHang)
+        public ActionResult Edit([Bind(Include = "IdKhachHang,HoTen,Sdt,GioiTinh,QueQuan,HKTT,SoCMND")] KhachHang khachHang, HttpPostedFileBase fileUpload)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(khachHang).State = EntityState.Modified;
+                KhachHang kh = db.KhachHangs.FirstOrDefault(p => p.IdKhachHang == khachHang.IdKhachHang);
+                kh.HoTen = khachHang.HoTen;
+                kh.Sdt = khachHang.Sdt;
+                kh.GioiTinh = khachHang.GioiTinh;
+                kh.QueQuan = khachHang.QueQuan;
+                kh.HKTT = khachHang.HKTT;
+                if (fileUpload != null)
+                {
+                    var extension = Path.GetExtension(fileUpload.FileName);
+                    if (!fileUpload.ContentType.Contains("image"))
+                    {
+                        ViewBag.Error1 = "File hình không hợp lệ";
+                        return View(khachHang);
+                        throw new Exception("File hình không hợp lệ");
+                    }
+                    if (fileUpload.ContentLength > 3 * 1024 * 1024) throw new Exception("Hình ảnh vượt quá 3Mb");
+                    String _FileName = null;
+                    _FileName = Path.GetFileName(RemoveVietnamese.convertToSlug("-anhCMND" + extension));
+                    string _path = Path.Combine(Server.MapPath("~/Content/imgCMND/"), _FileName);
+                    fileUpload.SaveAs(_path);
+                    kh.SoCMND = _FileName;
+
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
+                //db.Entry(khachHang).State = EntityState.Modified;
+                //db.SaveChanges();
+                //return RedirectToAction("Index");
             }
             return View(khachHang);
         }

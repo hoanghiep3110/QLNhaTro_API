@@ -9,65 +9,107 @@ namespace QLNhaTro_API.APIController
     public class THUEPHONGController : ApiController
     {
         private DBQLNhaTro db = new DBQLNhaTro();
+
         // GET: api/THUEPHONG
-        public IEnumerable<ThuePhong> Get()
+        [HttpGet]
+        public IHttpActionResult Get()
         {
-            return db.ThuePhongs.ToList();
+            return Ok(db.ThuePhongs.ToList());
         }
 
         // GET: api/THUEPHONG/5
-        public ThuePhong Get(int id)
+        [HttpGet]
+        public IHttpActionResult Get(int id)
         {
-            return db.ThuePhongs.SingleOrDefault(t => t.IdThue == id);
+            ThuePhong thuephong = db.ThuePhongs.SingleOrDefault(p => p.IdThue == id);
+            if (thuephong == null)
+            {
+                return NotFound();
+            }
+
+            // Return
+            return Ok(thuephong);
         }
 
         // POST: api/THUEPHONG
-        public int Post(ThuePhong thuePhong)
+        [HttpPost]
+        public IHttpActionResult Post(ThuePhong thuePhong)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
-                    return 0;
+                    return Ok(new Message(0, "Thêm hợp đồng không thành công. Vui lòng thử lại"));
                 }
                 db.ThuePhongs.Add(thuePhong);
+
                 db.SaveChanges();
+
+                //Return
+                return Ok(new Message(1, "Thêm phòng thành công"));
             }
             catch (Exception)
             {
-                return 0;
+                return Ok(new Message(0, "Thêm hợp đồng không thành công. Vui lòng thử lại"));
             }
-            return 1;
         }
 
         // PUT: api/THUEPHONG/5
-        public int Put(int id, ThuePhong newThuePhong)
+        [HttpPut]
+        public IHttpActionResult Put(int id, ThuePhong newThuePhong)
         {
-            if (!ModelState.IsValid)
+            try
             {
-                return 0;
+                if (!ModelState.IsValid)
+                {
+                    return Ok(new Message(0, "Thay đổi thông tin thất bại. Vui lòng kiểm tra và thử lại"));
+                }
+                var thuephong = db.ThuePhongs.Find(id);
+                if (thuephong == null)
+                {
+                    return Ok(new Message(2, "Không tìm thấy hợp đồng cần thay đổi thông tin. Vui lòng kiểm tra và thử lại"));
+                }
+                thuephong.IdKhachHang = newThuePhong.IdKhachHang;
+                thuephong.IdPhong = newThuePhong.IdPhong;
+                thuephong.TienDatCoc = newThuePhong.TienDatCoc;
+                thuephong.NgayBatDau = newThuePhong.NgayBatDau;
+                thuephong.NgayKetThuc = newThuePhong.NgayKetThuc;
+                db.SaveChanges();
+
+                // Return
+                return Ok(new Message(1, "Thay đổi thông tin thành công"));
             }
-            var thuephong = db.ThuePhongs.Find(id);
-            if (thuephong == null)
+            catch (Exception)
             {
-                return -1;
+                return Ok(new Message(0, "Thay đổi thông tin thất bại. Vui lòng kiểm tra và thử lại"));
             }
-            thuephong.IdKhachHang = newThuePhong.IdKhachHang;
-            thuephong.IdPhong = newThuePhong.IdPhong;
-            thuephong.TienDatCoc = newThuePhong.TienDatCoc;
-            thuephong.NgayBatDau = newThuePhong.NgayBatDau;
-            thuephong.NgayKetThuc = newThuePhong.NgayKetThuc;
-            db.SaveChanges();
-            return 1;
         }
 
         // DELETE: api/THUEPHONG/5
-        public int Delete(int id)
+        [HttpDelete]
+        public IHttpActionResult Delete(int id)
         {
-            ThuePhong thuePhong = db.ThuePhongs.Find(id);
-            db.ThuePhongs.Remove(thuePhong);
-            db.SaveChanges();
-            return 1;
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return Ok(new Message(0, "Xoá thất bại. Vui lòng kiểm tra và thử lại"));
+                }
+                ThuePhong thuePhong = db.ThuePhongs.Find(id);
+                if (thuePhong == null)
+                {
+                    return Ok(new Message(2, "Không tìm thấy hợp đồng cần xoá. Vui lòng kiểm tra và thử lại"));
+                }
+                db.ThuePhongs.Remove(thuePhong);
+                db.SaveChanges();
+
+                //Return
+                return Ok(new Message(1, "Xoá thành công"));
+            }
+            catch (Exception)
+            {
+                return Ok(new Message(0, "Xoá thất bại. Vui lòng kiểm tra và thử lại"));
+            }
         }
     }
 }

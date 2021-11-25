@@ -12,22 +12,22 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.HoTen)
+                HỌ VÀ TÊN  
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Sdt)
+                SỐ ĐIỆN THOẠI
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.GioiTinh)
+                GIỚI TÍNH
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.QueQuan)
+                QUÊ QUÁN
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HKTT)
+                HỘ KHẨU THƯỜNG TRÚ
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.SoCMND)
+                SỐ CMND/CCCD
             </th>
             <th>Thao tác</th>
         </tr>
@@ -52,7 +52,7 @@
                 @Html.DisplayFor(modelItem => item.HKTT)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.SoCMND)
+                <img src="@item.SoCMND" width="50" height="50" alt="Hình CMND" />
             </td>
             <td>
                 <a class="btn btn-sm btn-success" href="@Url.Action("Edit","KhachHangs",new { @id = item.IdKhachHang })">

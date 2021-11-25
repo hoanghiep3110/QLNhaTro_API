@@ -42,6 +42,8 @@ namespace QLNhaTro_API.APIController
                 phong.TrangThai = 0;
                 db.Phongs.Add(phong);
                 db.SaveChanges();
+
+                //Return
                 return Ok(new Message(1, "Thêm phòng thành công"));
             }
             catch (Exception)
@@ -74,7 +76,7 @@ namespace QLNhaTro_API.APIController
             }
             catch (Exception )
             {
-                return Ok(new Message(0, "Thay đổi phòng không thành công. Vui lòng thử lại"));
+                return Ok(new Message(0, "Thay đổi thông tin thất bại. Vui lòng kiểm tra và thử lại"));
             }
         }
 
@@ -95,11 +97,13 @@ namespace QLNhaTro_API.APIController
                 }
                 db.Phongs.Remove(phong);
                 db.SaveChanges();
+
+                //Return
                 return Ok(new Message(1, "Xoá thành công"));
             }
             catch (Exception)
             {
-                return Ok(new Message(0, "Xóa phòng không thành công. Vui lòng thử lại"));
+                return Ok(new Message(0, "Xoá thất bại. Vui lòng kiểm tra và thử lại"));
             }
         }
 

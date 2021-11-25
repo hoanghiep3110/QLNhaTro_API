@@ -52,6 +52,7 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.4.4\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Build.Tasks.v4.0" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -159,6 +160,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\MD5Helper.cs" />
+    <Compile Include="Helper\RemoveVietnamese.cs" />
     <Compile Include="Models\ChiTietHoaDon.cs" />
     <Compile Include="Models\DBQLNhaTro.cs" />
     <Compile Include="Models\DichVu.cs" />
@@ -188,6 +190,7 @@
     <Content Include="Content\fonts\Linearicons-Free-v1.0.0\WebFont\Linearicons-Free.svg" />
     <Content Include="Content\Image\house.png" />
     <Content Include="Content\Image\logologin.png" />
+    <Content Include="Content\imgCMND\hinh1.png" />
     <Content Include="Content\js\charts-custom.js" />
     <Content Include="Content\js\charts-home.js" />
     <Content Include="Content\js\front.js" />

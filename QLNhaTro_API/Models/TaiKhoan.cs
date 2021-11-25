@@ -6,6 +6,7 @@ namespace QLNhaTro_API.Models
     [Table("TaiKhoan")]
     public partial class TaiKhoan
     {
+
         [Key]
         public int IdTaiKhoan { get; set; }
 

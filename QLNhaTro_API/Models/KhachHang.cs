@@ -1,10 +1,7 @@
 namespace QLNhaTro_API.Models
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("KhachHang")]
     public partial class KhachHang
@@ -32,8 +29,8 @@ namespace QLNhaTro_API.Models
         [StringLength(255)]
         public string HKTT { get; set; }
 
-        [Required]
-        [StringLength(50)]
+        [StringLength(255)]
         public string SoCMND { get; set; }
+
     }
 }

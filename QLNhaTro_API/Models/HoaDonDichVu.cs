@@ -1,10 +1,7 @@
 namespace QLNhaTro_API.Models
 {
-    using System;
-    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
 
     [Table("HoaDonDichVu")]
     public partial class HoaDonDichVu

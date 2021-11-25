@@ -51,37 +51,54 @@ namespace QLNhaTro_API.APIController
         [HttpPut]
         public IHttpActionResult Put(int id, DichVu newDichVu)
         {
-            if (!ModelState.IsValid)
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return Ok(new Message(0, "Thay đổi thông tin thất bại. Vui lòng kiểm tra và thử lại"));
+                }
+                var dichvu = db.DichVus.Find(id);
+                if (dichvu == null)
+                {
+                    return Ok(new Message(2, "Không tìm thấy dịch vụ cần thay đổi thông tin. Vui lòng kiểm tra và thử lại"));
+                }
+                dichvu.TenDichVu = newDichVu.TenDichVu;
+                dichvu.DonGia = newDichVu.DonGia;
+                db.SaveChanges();
+
+                //Return
+                return Ok(new Message(1, "Thay đổi thông tin thành công"));
+            }
+            catch (Exception)
             {
                 return Ok(new Message(0, "Thay đổi thông tin thất bại. Vui lòng kiểm tra và thử lại"));
             }
-            var dichvu = db.DichVus.Find(id);
-            if (dichvu == null)
-            {
-                return Ok(new Message(2, "Không tìm thấy dịch vụ cần thay đổi thông tin. Vui lòng kiểm tra và thử lại"));
-            }
-            dichvu.TenDichVu = newDichVu.TenDichVu;
-            dichvu.DonGia = newDichVu.DonGia;
-            db.SaveChanges();
-            return Ok(new Message(1, "Thay đổi thông tin thành công"));
+
         }
 
         // DELETE: api/DICHVU/5
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
-            if (!ModelState.IsValid)
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return Ok(new Message(0, "Xoá thất bại. Vui lòng kiểm tra và thử lại"));
+                }
+                DichVu dichVu = db.DichVus.Find(id);
+                if (dichVu == null)
+                {
+                    return Ok(new Message(2, "Không tìm thấy dịch vụ cần xoá. Vui lòng kiểm tra và thử lại"));
+                }
+                db.DichVus.Remove(dichVu);
+                db.SaveChanges();
+                return Ok(new Message(1, "Xoá thành công"));
+            }
+            catch (Exception)
             {
                 return Ok(new Message(0, "Xoá thất bại. Vui lòng kiểm tra và thử lại"));
             }
-            DichVu dichVu = db.DichVus.Find(id);
-            if (dichVu == null)
-            {
-                return Ok(new Message(2, "Không tìm thấy dịch vụ cần xoá. Vui lòng kiểm tra và thử lại"));
-            }
-            db.DichVus.Remove(dichVu);
-            db.SaveChanges();
-            return Ok(new Message(1, "Xoá thành công"));
         }
     }
 }

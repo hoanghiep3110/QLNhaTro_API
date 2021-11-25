@@ -39,53 +39,72 @@ namespace QLNhaTro_API.APIController
                 }
                 db.KhachHangs.Add(khachHang);
                 db.SaveChanges();
+
+                //Return
+                return Ok(new Message(1, "Thêm khách hàng thành công"));
             }
             catch (Exception)
             {
                 return Ok(new Message(0, "Thêm khách hàng không thành công. Vui lòng thử lại"));
             }
-            return Ok(new Message(1, "Thêm khách hàng thành công"));
         }
 
         // PUT: api/KHACHHANG/5
         [HttpPut]
         public IHttpActionResult Put(int id, KhachHang khachHang)
         {
-            if (!ModelState.IsValid)
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return Ok(new Message(0, "Thay đổi thông tin thất bại. Vui lòng kiểm tra và thử lại"));
+                }
+                var khachhang = db.KhachHangs.Find(id);
+                if (khachhang == null)
+                {
+                    return Ok(new Message(2, "Không tìm thấy khách hàng cần thay đổi thông tin. Vui lòng kiểm tra và thử lại"));
+                }
+                khachhang.HoTen = khachHang.HoTen;
+                khachhang.Sdt = khachHang.Sdt; ;
+                khachhang.GioiTinh = khachHang.GioiTinh;
+                khachhang.QueQuan = khachHang.QueQuan;
+                khachhang.HKTT = khachHang.HKTT;
+                khachhang.SoCMND = khachHang.SoCMND;
+                db.SaveChanges();
+
+                return Ok(new Message(1, "Thay đổi thông tin thành công"));
+            }
+            catch (Exception )
             {
                 return Ok(new Message(0, "Thay đổi thông tin thất bại. Vui lòng kiểm tra và thử lại"));
             }
-            var khachhang = db.KhachHangs.Find(id);
-            if (khachhang == null)
-            {
-                return Ok(new Message(2, "Không tìm thấy khách hàng cần thay đổi thông tin. Vui lòng kiểm tra và thử lại"));
-            }
-            khachhang.HoTen = khachHang.HoTen;
-            khachhang.Sdt = khachHang.Sdt; ;
-            khachhang.GioiTinh = khachHang.GioiTinh;
-            khachhang.QueQuan = khachHang.QueQuan;
-            khachhang.HKTT = khachHang.HKTT;
-            khachhang.SoCMND = khachHang.SoCMND;
-            db.SaveChanges();
-            return Ok(new Message(1, "Thay đổi thông tin thành công"));
         }
 
         // DELETE: api/KHACHHANG/5
         [HttpDelete]
         public IHttpActionResult Delete(int id)
         {
-            if (!ModelState.IsValid)
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return Ok(new Message(0, "Xoá thất bại. Vui lòng kiểm tra và thử lại"));
+                }
+                KhachHang khachHang = db.KhachHangs.Find(id);
+                if (khachHang == null)
+                {
+                    return Ok(new Message(2, "Không tìm thấy phòng cần xoá. Vui lòng kiểm tra và thử lại"));
+                }
+                db.KhachHangs.Remove(khachHang);
+                db.SaveChanges();
+
+                //Ret
+                return Ok(new Message(1, "Xoá thành công"));
+            }
+            catch (Exception )
             {
                 return Ok(new Message(0, "Xoá thất bại. Vui lòng kiểm tra và thử lại"));
             }
-            KhachHang khachHang = db.KhachHangs.Find(id);
-            if (khachHang == null)
-            {
-                return Ok(new Message(2, "Không tìm thấy phòng cần xoá. Vui lòng kiểm tra và thử lại"));
-            }
-            db.KhachHangs.Remove(khachHang);
-            db.SaveChanges();
-            return Ok(new Message(1, "Xoá thành công"));
         }
     }
 }
