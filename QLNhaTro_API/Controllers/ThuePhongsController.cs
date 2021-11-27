@@ -1,7 +1,10 @@
 ﻿using System.Data.Entity;
+using System.IO;
 using System.Linq;
 using System.Net;
+using System.Web;
 using System.Web.Mvc;
+using QLNhaTro_API.Helper;
 using QLNhaTro_API.Models;
 
 namespace QLNhaTro_API.Controllers
@@ -43,7 +46,7 @@ namespace QLNhaTro_API.Controllers
         // POST: ThuePhongs/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdThue,IdKhachHang,IdPhong,TienDatCoc,NgayBatDau,NgayKetThuc")] ThuePhong thuePhong)
+        public ActionResult Create([Bind(Include = "IdThue,IdKhachHang,IdPhong,TienDatCoc,NgayBatDau,NgayKetThuc")] ThuePhong thuePhong, HttpPostedFileBase fileUpload)
         {
             if (ModelState.IsValid)
             {
@@ -53,6 +56,14 @@ namespace QLNhaTro_API.Controllers
                     phong.TrangThai = 1;
                 }
                 db.ThuePhongs.Add(thuePhong);
+                if (fileUpload != null)
+                {
+                    string khachang = db.KhachHangs.Find(thuePhong.IdKhachHang).HoTen;
+                    var extension = Path.GetExtension(fileUpload.FileName);
+                    string fileName = Path.GetFileName(RemoveVietnamese.convertToSlug(khachang) + "-fileHopDong" + extension);
+                    thuePhong.FileHopDong = "/Content/fileHopDong/" + fileName;
+                    fileUpload.SaveAs(Path.Combine(Server.MapPath("~/Content/fileHopDong/"), fileName));
+                }
                 AddInvoice(thuePhong.IdPhong, thuePhong.IdKhachHang);
                 db.SaveChanges();
                 return RedirectToAction("Index");
@@ -142,6 +153,13 @@ namespace QLNhaTro_API.Controllers
             hoadon.TienThanhToan = 0;
             hoadon.TrangThaiThanhToan = false;
             db.HoaDonDichVus.Add(hoadon);
+        }
+
+        public ActionResult upFile(int id, HttpPostedFileBase fileUpload)
+        {
+            db.SaveChanges();
+            return View(fileUpload);
+
         }
     }
 }
