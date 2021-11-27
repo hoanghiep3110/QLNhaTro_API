@@ -29,6 +29,7 @@ namespace QLNhaTro_API.Models
         [Required]
         [StringLength(255)]
         public string Password { get; set; }
+       
 
     }
 }

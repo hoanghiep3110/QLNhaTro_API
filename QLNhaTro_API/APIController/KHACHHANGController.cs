@@ -1,6 +1,9 @@
-﻿using QLNhaTro_API.Models;
+﻿using QLNhaTro_API.Helper;
+using QLNhaTro_API.Models;
 using System;
+using System.IO;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
 
 namespace QLNhaTro_API.APIController
@@ -29,17 +32,25 @@ namespace QLNhaTro_API.APIController
 
         // POST: api/KHACHHANG
         [HttpPost]
-        public IHttpActionResult Post(KhachHang khachHang)
+        public IHttpActionResult Post(KhachHang khachHang, HttpPostedFileBase fileUpload)
         {
             try
             {
                 if (!ModelState.IsValid)
                 {
+                    if (fileUpload != null)
+                    {
+                        var extension = Path.GetExtension(fileUpload.FileName);
+                        String _FileName = null;
+                        _FileName = Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen.ToLower()) + "-anhCMND" + extension);
+                        string _path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/imgCMND/"), _FileName);
+                        fileUpload.SaveAs(_path);
+                        khachHang.SoCMND ="/Content/imgCMND/" + _FileName;
+                        db.KhachHangs.Add(khachHang);
+                        db.SaveChanges();
+                    }
                     return Ok(new Message(0, "Thêm khách hàng không thành công. Vui lòng thử lại"));
                 }
-                db.KhachHangs.Add(khachHang);
-                db.SaveChanges();
-
                 //Return
                 return Ok(new Message(1, "Thêm khách hàng thành công"));
             }

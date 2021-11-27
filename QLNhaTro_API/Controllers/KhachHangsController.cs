@@ -1,14 +1,12 @@
 ﻿using System;
-using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using System.Diagnostics;
 using QLNhaTro_API.Helper;
 using QLNhaTro_API.Models;
-using System.Data.Entity.Migrations;
+
 
 namespace QLNhaTro_API.Controllers
 {
@@ -50,18 +48,12 @@ namespace QLNhaTro_API.Controllers
         {
             if (ModelState.IsValid)
             {
-                ////var khachhang = db.KhachHangs.Where(p => p.Sdt == khachHang.Sdt).SingleOrDefault();
-                //if (khachhang!=null || fileUpload == null)
-                //{
-                //    ViewBag.Error = "Khách hàng đã tồn tại";
-                //    return View(khachHang);
-                //}
                 if (fileUpload != null)
                 {
                     var extension = Path.GetExtension(fileUpload.FileName);
                     if (!fileUpload.ContentType.Contains("image"))
-                    { 
-                        ViewBag.Error1 = "File hình không hợp lệ";
+                    {
+                        ViewBag.Error2 = "File hình không hợp lệ";
                         return View(khachHang);
                         throw new Exception("File hình không hợp lệ");
                     }
@@ -78,8 +70,8 @@ namespace QLNhaTro_API.Controllers
             }
             return View(khachHang);
         }
-            // GET: KhachHangs/Edit/5
-            public ActionResult Edit(int? id)
+        // GET: KhachHangs/Edit/5
+        public ActionResult Edit(int? id)
         {
             if (id == null)
             {
@@ -98,17 +90,24 @@ namespace QLNhaTro_API.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdKhachHang,HoTen,Sdt,GioiTinh,QueQuan,HKTT,SoCMND")] KhachHang khachHang, HttpPostedFileBase fileUpload)
         {
+            var pathold = Path.Combine(Server.MapPath("~/Content/imgCMND/"), Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen.ToLower()) + "-anhCMND.png"));
             if (ModelState.IsValid)
             {
+                ThuePhong thuephong = db.ThuePhongs.SingleOrDefault(p => p.IdKhachHang == khachHang.IdKhachHang);
+                if (thuephong != null)
+                {
+                    ViewBag.Error2 = "Khách hàng đã tạo hợp đồng. Vui lòng không thay đổi thông tin";
+                    return View(khachHang);
+                }
                 KhachHang kh = db.KhachHangs.FirstOrDefault(p => p.IdKhachHang == khachHang.IdKhachHang);
                 kh.HoTen = khachHang.HoTen;
                 kh.Sdt = khachHang.Sdt;
                 kh.GioiTinh = khachHang.GioiTinh;
                 kh.QueQuan = khachHang.QueQuan;
                 kh.HKTT = khachHang.HKTT;
+                db.SaveChanges();
                 if (fileUpload != null)
                 {
-                    var extension = Path.GetExtension(fileUpload.FileName);
                     if (!fileUpload.ContentType.Contains("image"))
                     {
                         ViewBag.Error1 = "File hình không hợp lệ";
@@ -117,19 +116,26 @@ namespace QLNhaTro_API.Controllers
                     }
                     if (fileUpload.ContentLength > 3 * 1024 * 1024) throw new Exception("Hình ảnh vượt quá 3Mb");
                     String _FileName = null;
-                    _FileName = Path.GetFileName(RemoveVietnamese.convertToSlug("-anhCMND" + extension));
+                    _FileName = Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen.ToLower()) + "-anhCMND.png");
                     string _path = Path.Combine(Server.MapPath("~/Content/imgCMND/"), _FileName);
+                    try
+                    {
+                        if (System.IO.File.Exists(pathold)) System.IO.File.Delete(pathold);
+                        if (System.IO.File.Exists(_path)) System.IO.File.Delete(_path);
+                    }
+                    catch (Exception)
+                    { }
                     fileUpload.SaveAs(_path);
-                    kh.SoCMND = _FileName;
-
+                    khachHang.SoCMND ="/Content/imgCMND/" + _FileName;
+                    var imgold = db.KhachHangs.Where(x => x.IdKhachHang == khachHang.IdKhachHang).SingleOrDefault();
+                    db.KhachHangs.Remove(imgold);
+                    db.KhachHangs.Add(khachHang);
+                    db.SaveChanges();
                 }
                 db.SaveChanges();
                 return RedirectToAction("Index");
-                //db.Entry(khachHang).State = EntityState.Modified;
-                //db.SaveChanges();
-                //return RedirectToAction("Index");
             }
-            return View(khachHang);
+            return View(khachHang);    
         }
 
         // GET: KhachHangs/Delete/5

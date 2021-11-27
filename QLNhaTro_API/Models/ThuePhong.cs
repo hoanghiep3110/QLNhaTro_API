@@ -22,6 +22,9 @@ namespace QLNhaTro_API.Models
         [Column(TypeName = "date")]
         public DateTime NgayKetThuc { get; set; }
 
+        [StringLength(255)]
+        public string FileHopDong { get; set; }
+
         public virtual KhachHang KhachHang { get; set; }
 
         public virtual Phong Phong { get; set; }

@@ -28,6 +28,9 @@
             <th>
                 NGÀY KẾT THÚC
             </th>
+            <th>
+                HỢP ĐỒNG
+            </th>
             <th>Thao tác</th>
         </tr>
     </thead>
@@ -49,6 +52,9 @@
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.NgayKetThuc)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FileHopDong)
                 </td>
                 <td>
                     <a class="btn btn-sm btn-success" href="@Url.Action("Edit","ThuePhongs",new { @id = item.IdThue })">
