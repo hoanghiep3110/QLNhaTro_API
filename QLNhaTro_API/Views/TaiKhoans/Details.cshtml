@@ -5,55 +5,29 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>TaiKhoan</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.HoTen)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HoTen)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Sdt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Sdt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.DiaChi)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.DiaChi)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Username)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Username)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdTaiKhoan }) |
-    @Html.ActionLink("Back to List", "Index")
+<<p style="text-align:right;margin:10px;">
+    <a href="@Url.Action("Index","TaiKhoans")" class="btn btn-primary">QUAY LẠI</a>
 </p>
+<div class="container my-3 rounded rounded-3 border border-2" style="width:40%;">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center my-3">THÔNG TIN TÀI KHOẢN</h1>
+            <hr />
+            <div class="mb-3">
+                <h3 class="form-label">Họ và tên: @Html.DisplayFor(model => model.HoTen)</h3>
+            </div>
+            <div class="mb-3">
+                <h3 class="form-label">Số điện thoại: @Html.DisplayFor(model => model.Sdt)</h3>
+            </div>
+            <div class="mb-3">
+                <h3 class="form-label">Địa chỉ: @Html.DisplayFor(model => model.DiaChi)</h3>
+            </div>
+            <div class="mb-3">
+                <h3 class="form-label">Tên đăng nhập: @Html.DisplayFor(model => model.Username)</h3>
+            </div>
+            <div class="mb-3">
+                <h3 class="form-label">Mật khẩu: @Html.DisplayFor(model => model.Password)</h3>
+            </div>
+        </div>
+    </div>
+</div>

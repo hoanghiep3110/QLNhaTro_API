@@ -15,22 +15,6 @@ namespace QLNhaTro_API.Controllers
         {
             return View(db.Phongs.ToList());
         }
-
-        // GET: Phongs/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Phong phong = db.Phongs.Find(id);
-            if (phong == null)
-            {
-                return HttpNotFound();
-            }
-            return View(phong);
-        }
-
         // GET: Phongs/Create
         public ActionResult Create()
         {

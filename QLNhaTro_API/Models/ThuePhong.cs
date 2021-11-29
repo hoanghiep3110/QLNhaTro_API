@@ -14,11 +14,14 @@ namespace QLNhaTro_API.Models
 
         public int IdPhong { get; set; }
 
+        [Required]
         public int TienDatCoc { get; set; }
 
+        [Required]
         [Column(TypeName = "date")]
         public DateTime NgayBatDau { get; set; }
 
+        [Required]
         [Column(TypeName = "date")]
         public DateTime NgayKetThuc { get; set; }
 

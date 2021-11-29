@@ -53,8 +53,10 @@
                 <td>
                     @Html.DisplayFor(modelItem => item.NgayKetThuc)
                 </td>
+
+
                 <td>
-                    @Html.DisplayFor(modelItem => item.FileHopDong)
+                    <a href="@item.FileHopDong" download><b>@item.FileHopDong.Replace("/Content/fileHopDong/", "")</b></a>
                 </td>
                 <td>
                     <a class="btn btn-sm btn-success" href="@Url.Action("Edit","ThuePhongs",new { @id = item.IdThue })">

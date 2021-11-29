@@ -5,31 +5,20 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>DichVu</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.TenDichVu)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TenDichVu)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Gia)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Gia)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdDichVu }) |
-    @Html.ActionLink("Back to List", "Index")
+<<p style="text-align:right;margin:10px;">
+    <a href="@Url.Action("Index","DichVus")" class="btn btn-primary">QUAY LẠI</a>
 </p>
+<div class="container my-3 rounded rounded-3 border border-2" style="width:40%;">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center my-3">CHI TIẾT DỊCH VỤ</h1>
+            <hr />
+            <div class="mb-3">
+                <h3 class="form-label">Tên dịch vụ: @Html.DisplayFor(model => model.TenDichVu)</h3>
+            </div>
+            <div class="mb-3">
+                <h3 class="form-label">Đơn giá: @Html.DisplayFor(model => model.DonGia)</h3>
+            </div>
+        </div>
+    </div>
+</div>

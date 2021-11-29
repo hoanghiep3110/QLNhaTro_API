@@ -14,6 +14,7 @@ namespace QLNhaTro_API.Models
         [StringLength(50)]
         public string TenDichVu { get; set; }
 
+        [Required]
         public int DonGia { get; set; }
 
     }

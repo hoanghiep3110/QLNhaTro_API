@@ -476,7 +476,6 @@
     <Content Include="Views\Auth\Login.cshtml" />
     <Content Include="Views\Phongs\Create.cshtml" />
     <Content Include="Views\Phongs\Delete.cshtml" />
-    <Content Include="Views\Phongs\Details.cshtml" />
     <Content Include="Views\Phongs\Edit.cshtml" />
     <Content Include="Views\Phongs\Index.cshtml" />
     <Content Include="Views\KhachHangs\Create.cshtml" />

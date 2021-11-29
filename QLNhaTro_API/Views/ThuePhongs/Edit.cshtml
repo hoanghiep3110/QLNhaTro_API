@@ -7,7 +7,7 @@
 
 <h2>Edit</h2>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "ThuePhongs", FormMethod.Post, new { @enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -17,21 +17,11 @@
     @Html.ValidationSummary(true, "", new { @class = "text-danger" })
     @Html.HiddenFor(model => model.IdThue)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.IdKhachHang, "IdKhachHang", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("IdKhachHang", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.IdKhachHang, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.IdKhachHang)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.IdPhong, "IdPhong", htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.DropDownList("IdPhong", null, htmlAttributes: new { @class = "form-control" })
-            @Html.ValidationMessageFor(model => model.IdPhong, "", new { @class = "text-danger" })
-        </div>
-    </div>
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.HiddenFor(model => model.IdPhong)
 
     <div class="form-group">
         @Html.LabelFor(model => model.TienDatCoc, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -57,8 +47,20 @@
         </div>
     </div>
 
+    @if (ViewBag.Error3 != null)
+    {
+        <div class="alert alert-danger" role="alert">
+            @ViewBag.Error3
+        </div>
+    }
     <div class="form-group">
         @Html.LabelFor(model => model.FileHopDong, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group">
+            <label>File Hợp Đồng</label>
+            <div class="col-md-10">
+                <input title="Thêm file" type="file" name="fileUpload" id="fileUpload" onchange="loadFile(event)" />
+            </div>
+        </div>
         <div class="col-md-10">
             <a href="@Model.FileHopDong" download>@Model.FileHopDong.Replace("/Content/fileHopDong/", "")</a>
         </div>

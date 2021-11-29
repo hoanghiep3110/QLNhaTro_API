@@ -5,63 +5,33 @@
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h2>Details</h2>
-
-<div>
-    <h4>KhachHang</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.HoTen)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HoTen)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Sdt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Sdt)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GioiTinh)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GioiTinh)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.QueQuan)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.QueQuan)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.HKTT)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.HKTT)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.SoCMND)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.SoCMND)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.IdKhachHang }) |
-    @Html.ActionLink("Back to List", "Index")
+<p style="text-align:right;margin:10px;">
+    <a href="@Url.Action("Index","KhachHangs")" class="btn btn-primary">QUAY LẠI</a>
 </p>
+<div class="container my-3 rounded rounded-3 border border-2" style="width:40%;">
+    <div class="row">
+        <div class="col-md-12">
+            <h1 class="text-center my-3">THÔNG TIN KHÁCH HÀNG</h1>
+            <hr />
+            <div class="mb-3">
+                <h3 class="form-label">Họ và tên: @Html.DisplayFor(model => model.HoTen)</h3>
+            </div>
+            <div class="mb-3">
+                <h3 class="form-label">Số điện thoại: @Html.DisplayFor(model => model.Sdt)</h3>
+            </div>
+            <div class="mb-3">
+                <h3 class="form-label">Giới tính: @Html.DisplayFor(model => model.GioiTinh)</h3>
+            </div>
+            <div class="mb-3">
+                <h3 class="form-label">Quê quán: @Html.DisplayFor(model => model.QueQuan)</h3>
+            </div>
+            <div class="mb-3">
+                <h3 class="form-label">Hộ khẩu thường trú: @Html.DisplayFor(model => model.HKTT)</h3>
+            </div>
+            <div class="mb-3">
+                <h3 class="form-label">Số CMND/CCCD:</h3>
+                <img src="@Model.SoCMND" alt="" class="image-preview-img " style="display:block;" />
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,4 +1,6 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -55,11 +57,24 @@ namespace QLNhaTro_API.Controllers
                 {
                     phong.TrangThai = 1;
                 }
+                ViewBag.IdKhachHang = new SelectList(db.KhachHangs, "IdKhachHang", "HoTen", thuePhong.IdKhachHang);
+                ViewBag.IdPhong = new SelectList(db.Phongs, "IdPhong", "TenPhong", thuePhong.IdPhong);
                 db.ThuePhongs.Add(thuePhong);
-                if (fileUpload != null)
+                if (fileUpload == null)
                 {
-                    string khachang = db.KhachHangs.Find(thuePhong.IdKhachHang).HoTen;
+                    ViewBag.Error = "Không được để trống file hợp đồng";
+                    return View(thuePhong);
+                }
+                else
+                {
+                    if (!fileUpload.ContentType.Contains("application"))
+                    {
+                        ViewBag.Error1 = "File hợp đồng không hợp lệ";
+                        return View(thuePhong);
+                        throw new Exception("File hợp đồng không hợp lệ");
+                    }
                     var extension = Path.GetExtension(fileUpload.FileName);
+                    string khachang = db.KhachHangs.Find(thuePhong.IdKhachHang).HoTen;
                     string fileName = Path.GetFileName(RemoveVietnamese.convertToSlug(khachang) + "-fileHopDong" + extension);
                     thuePhong.FileHopDong = "/Content/fileHopDong/" + fileName;
                     fileUpload.SaveAs(Path.Combine(Server.MapPath("~/Content/fileHopDong/"), fileName));
@@ -68,9 +83,6 @@ namespace QLNhaTro_API.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
-            ViewBag.IdKhachHang = new SelectList(db.KhachHangs, "IdKhachHang", "HoTen", thuePhong.IdKhachHang);
-            ViewBag.IdPhong = new SelectList(db.Phongs, "IdPhong", "TenPhong", thuePhong.IdPhong);
             return View(thuePhong);
         }
 
@@ -94,16 +106,44 @@ namespace QLNhaTro_API.Controllers
         // POST: ThuePhongs/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdThue,IdKhachHang,IdPhong,TienDatCoc,NgayBatDau,NgayKetThuc")] ThuePhong thuePhong)
+        public ActionResult Edit([Bind(Include = "IdThue,IdKhachHang,IdPhong,TienDatCoc,NgayBatDau,NgayKetThuc")] ThuePhong thuePhong, HttpPostedFileBase fileUpload)
         {
+            KhachHang khachHang = db.KhachHangs.SingleOrDefault(t => t.IdKhachHang == thuePhong.IdKhachHang);
+            var pathold = Path.Combine(Server.MapPath("~/Content/fileHopDong/"), Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen) + "-fileHopDong.docx"));
             if (ModelState.IsValid)
             {
-                db.Entry(thuePhong).State = EntityState.Modified;
+                ThuePhong tp = db.ThuePhongs.FirstOrDefault(p => p.IdThue == thuePhong.IdThue);
+                tp.TienDatCoc = thuePhong.TienDatCoc;
+                tp.NgayBatDau = thuePhong.NgayBatDau;
+                tp.NgayKetThuc = thuePhong.NgayKetThuc;
+                db.SaveChanges();
+                if (fileUpload != null)
+                {
+                    if (!fileUpload.ContentType.Contains("application"))
+                    {
+                        ViewBag.Error3 = "File hợp đồng không hợp lệ";
+                        return View(thuePhong);
+                    }
+                    String _FileName = null;
+                    _FileName = Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen) + "-fileHopDong.docx");
+                    string _path = Path.Combine(Server.MapPath("~/Content/fileHopDong/"), _FileName);
+                    try
+                    {
+                        if (System.IO.File.Exists(pathold)) { System.IO.File.Delete(pathold); }
+                        if (System.IO.File.Exists(_path)) {System.IO.File.Delete(_path);}
+                    }
+                    catch (Exception)
+                    { }
+                    fileUpload.SaveAs(_path);
+                    thuePhong.FileHopDong ="/Content/fileHopDong/" + _FileName;
+                    var fileold = db.ThuePhongs.Where(x => x.IdThue == thuePhong.IdThue).SingleOrDefault();
+                    db.ThuePhongs.Remove(fileold);
+                    db.ThuePhongs.Add(thuePhong);
+                    db.SaveChanges();
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IdKhachHang = new SelectList(db.KhachHangs, "IdKhachHang", "HoTen", thuePhong.IdKhachHang);
-            ViewBag.IdPhong = new SelectList(db.Phongs, "IdPhong", "TenPhong", thuePhong.IdPhong);
             return View(thuePhong);
         }
 
@@ -128,6 +168,12 @@ namespace QLNhaTro_API.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ThuePhong thuePhong = db.ThuePhongs.Find(id);
+            Phong phong = db.Phongs.Find(thuePhong.IdPhong);
+            if (phong.IdPhong == thuePhong.IdPhong)
+            {
+                phong.TrangThai = 0;
+            }
+            DeleteInvoice(thuePhong.IdPhong);
             db.ThuePhongs.Remove(thuePhong);
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -155,11 +201,17 @@ namespace QLNhaTro_API.Controllers
             db.HoaDonDichVus.Add(hoadon);
         }
 
-        public ActionResult upFile(int id, HttpPostedFileBase fileUpload)
+        public void DeleteInvoice(int id)
         {
-            db.SaveChanges();
-            return View(fileUpload);
 
+            ThuePhong thue = db.ThuePhongs.SingleOrDefault(t => t.IdPhong == id);
+            HoaDonDichVu hoaDonDichVu = db.HoaDonDichVus.SingleOrDefault(p => p.IdPhong == thue.IdPhong);
+            List<ChiTietHoaDon> chiTietHoaDon = db.ChiTietHoaDons.Where(u => u.IdHoaDon == id).ToList();
+            foreach (var item in chiTietHoaDon)
+            {
+                db.ChiTietHoaDons.Remove(item);
+            }
+            db.HoaDonDichVus.Remove(hoaDonDichVu);
         }
     }
 }

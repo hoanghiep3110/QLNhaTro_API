@@ -48,15 +48,20 @@ namespace QLNhaTro_API.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (fileUpload != null)
+                if (fileUpload == null)
                 {
-                    var extension = Path.GetExtension(fileUpload.FileName);
+                    ViewBag.Error = "Không được để trống file hình ảnh";
+                    return View(khachHang);
+                }
+                else
+                {
                     if (!fileUpload.ContentType.Contains("image"))
                     {
                         ViewBag.Error2 = "File hình không hợp lệ";
                         return View(khachHang);
                         throw new Exception("File hình không hợp lệ");
                     }
+                    string extension = Path.GetExtension(fileUpload.FileName);
                     if (fileUpload.ContentLength > 3 * 1024 * 1024) throw new Exception("Hình ảnh vượt quá 3Mb");
                     String _FileName = null;
                     _FileName = Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen.ToLower()) + "-anhCMND" + extension);
@@ -65,6 +70,7 @@ namespace QLNhaTro_API.Controllers
                     khachHang.SoCMND ="/Content/imgCMND/" + _FileName;
                     db.KhachHangs.Add(khachHang);
                     db.SaveChanges();
+
                 }
                 return RedirectToAction("Index");
             }
@@ -135,7 +141,7 @@ namespace QLNhaTro_API.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(khachHang);    
+            return View(khachHang);
         }
 
         // GET: KhachHangs/Delete/5
@@ -159,6 +165,12 @@ namespace QLNhaTro_API.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             KhachHang khachHang = db.KhachHangs.Find(id);
+            ThuePhong thuephong = db.ThuePhongs.SingleOrDefault(p => p.IdKhachHang == id);
+            if (thuephong != null)
+            {
+                ViewBag.Error3 = "Khách hàng đã tạo hợp đồng. Nếu muốn xoá hãy thực hiện xoá hợp đồng trước. Cảm ơn";
+                return View(khachHang);
+            }
             db.KhachHangs.Remove(khachHang);
             db.SaveChanges();
             return RedirectToAction("Index");

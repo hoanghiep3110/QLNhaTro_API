@@ -40,7 +40,7 @@ namespace QLNhaTro_API.Controllers
         // POST: DichVus/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdDichVu,TenDichVu,Gia")] DichVu dichVu)
+        public ActionResult Create([Bind(Include = "IdDichVu,TenDichVu,DonGia")] DichVu dichVu)
         {
             if (ModelState.IsValid)
             {
@@ -70,7 +70,7 @@ namespace QLNhaTro_API.Controllers
         // POST: DichVus/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdDichVu,TenDichVu,Gia")] DichVu dichVu)
+        public ActionResult Edit([Bind(Include = "IdDichVu,TenDichVu,DonGia")] DichVu dichVu)
         {
             if (ModelState.IsValid)
             {
