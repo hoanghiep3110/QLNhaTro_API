@@ -31,6 +31,7 @@ namespace QLNhaTro_API.Models
 
         [StringLength(255)]
         public string SoCMND { get; set; }
+        
 
     }
 }

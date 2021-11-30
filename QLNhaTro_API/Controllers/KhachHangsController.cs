@@ -19,6 +19,10 @@ namespace QLNhaTro_API.Controllers
         {
             return View(db.KhachHangs.ToList());
         }
+        public ActionResult TestFectchAPI()
+        {
+            return View();
+        }
 
         // GET: KhachHangs/Details/5
         public ActionResult Details(int? id)

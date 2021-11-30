@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Web;
 using System.Web.Http;
+using QLNhaTro_API.ModelAPI;
 using QLNhaTro_API.Models;
 
 namespace QLNhaTro_API.APIController
@@ -14,21 +16,48 @@ namespace QLNhaTro_API.APIController
         [HttpGet]
         public IHttpActionResult Get()
         {
-            return Ok(db.ThuePhongs.ToList());
+            List<ThuePhongAPI> list = new List<ThuePhongAPI>();
+            var result = db.ThuePhongs.ToList();
+            foreach (var item in result)
+            {
+                var thuephong = new ThuePhongAPI();
+                thuephong.IdThue = item.IdThue;
+                thuephong.IdKhachHang = item.IdKhachHang;
+                thuephong.HoTen = item.KhachHang.HoTen;
+                thuephong.IdPhong = item.IdPhong;
+                thuephong.TenPhong = item.Phong.TenPhong;
+                thuephong.TienDatCoc = item.TienDatCoc;
+                thuephong.NgayBatDau = item.NgayBatDau;
+                thuephong.NgayKetThuc = item.NgayKetThuc;
+                thuephong.FileHopDong = item.FileHopDong;
+                list.Add(thuephong);
+            }
+            return Ok(list);
         }
 
         // GET: api/THUEPHONG/5
         [HttpGet]
         public IHttpActionResult Get(int id)
         {
-            ThuePhong thuephong = db.ThuePhongs.SingleOrDefault(p => p.IdThue == id);
-            if (thuephong == null)
+            ThuePhongAPI hopdong = new ThuePhongAPI();
+            var result = db.ThuePhongs.SingleOrDefault(p => p.IdThue == id);
+            if (result == null)
             {
                 return NotFound();
             }
-
+            hopdong.IdThue = result.IdThue;
+            hopdong.IdKhachHang = result.IdKhachHang;
+            hopdong.HoTen = result.KhachHang.HoTen;
+            hopdong.IdPhong = result.IdPhong;
+            hopdong.TenPhong = result.Phong.TenPhong;
+            hopdong.TienDatCoc = result.TienDatCoc;
+            hopdong.NgayBatDau = result.NgayBatDau;
+            hopdong.NgayKetThuc = result.NgayKetThuc;
+            hopdong.FileHopDong = result.FileHopDong;
+            //hopdong.LinkDownLoad = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + result.FileHopDong;
+            hopdong.LinkDownLoad = "https://6880-2402-800-6312-d283-8168-7aba-d551-e9a1.ngrok.io" + result.FileHopDong;
             // Return
-            return Ok(thuephong);
+            return Ok(hopdong);
         }
 
         // POST: api/THUEPHONG

@@ -1,4 +1,5 @@
 ﻿using QLNhaTro_API.Helper;
+using QLNhaTro_API.ModelAPI;
 using QLNhaTro_API.Models;
 using System;
 using System.IO;
@@ -32,25 +33,26 @@ namespace QLNhaTro_API.APIController
 
         // POST: api/KHACHHANG
         [HttpPost]
-        public IHttpActionResult Post(KhachHang khachHang, HttpPostedFileBase fileUpload)
+        public IHttpActionResult Post()
         {
+            var file = HttpContext.Current.Request.Files[0].FileName;
             try
             {
-                if (!ModelState.IsValid)
-                {
-                    if (fileUpload != null)
-                    {
-                        var extension = Path.GetExtension(fileUpload.FileName);
-                        String _FileName = null;
-                        _FileName = Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen.ToLower()) + "-anhCMND" + extension);
-                        string _path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/imgCMND/"), _FileName);
-                        fileUpload.SaveAs(_path);
-                        khachHang.SoCMND ="/Content/imgCMND/" + _FileName;
-                        db.KhachHangs.Add(khachHang);
-                        db.SaveChanges();
-                    }
-                    return Ok(new Message(0, "Thêm khách hàng không thành công. Vui lòng thử lại"));
-                }
+                //if (!ModelState.IsValid)
+                //{
+                //    //if (fileUpload != null)
+                //    //{
+                //    //    var extension = Path.GetExtension(fileUpload.FileName);
+                //    //    String _FileName = null;
+                //    //    _FileName = Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen.ToLower()) + "-anhCMND" + extension);
+                //    //    string _path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/imgCMND/"), _FileName);
+                //    //    fileUpload.SaveAs(_path);
+                //    //    khachHang.SoCMND ="/Content/imgCMND/" + _FileName;
+                //    //    db.KhachHangs.Add(khachHang);
+                //    //    db.SaveChanges();
+                //    //}
+                //    //return Ok(new Message(0, "Thêm khách hàng không thành công. Vui lòng thử lại"));
+                //}
                 //Return
                 return Ok(new Message(1, "Thêm khách hàng thành công"));
             }
@@ -85,7 +87,7 @@ namespace QLNhaTro_API.APIController
 
                 return Ok(new Message(1, "Thay đổi thông tin thành công"));
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return Ok(new Message(0, "Thay đổi thông tin thất bại. Vui lòng kiểm tra và thử lại"));
             }
@@ -112,7 +114,7 @@ namespace QLNhaTro_API.APIController
                 //Ret
                 return Ok(new Message(1, "Xoá thành công"));
             }
-            catch (Exception )
+            catch (Exception)
             {
                 return Ok(new Message(0, "Xoá thất bại. Vui lòng kiểm tra và thử lại"));
             }

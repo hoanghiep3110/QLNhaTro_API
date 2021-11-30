@@ -1,0 +1,74 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <form id="form" enctype="multipart/form-data">
+
+
+        <table>
+            <tr>
+                <td>Name:</td>
+                <td><input type="text" id="fileName" /></td>
+            </tr>
+            <tr>
+                <td>File:</td>
+                <td><input type="file" id="file" name="file" /></td>
+            </tr>
+            <tr>
+                <td></td>
+                <td><input type="submit" id="btnUpload" value="Upload" /></td>
+            </tr>
+            <tr>
+                <td colspan="2"><progress id="fileProgress" style="display: none"></progress></td>
+            </tr>
+        </table>
+    </form>
+    <hr />
+    <span id="lblMessage" style="color: Green"></span>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+    <script type="text/javascript">
+        $("body").on("submit", "#form", function () {
+            var formData = new FormData(this);
+            console.log("OK");
+            console.log(formData.get("file"));
+            $.ajax({
+                url: '/api/khachhang',
+                type: 'POST',
+                data: formData,
+                cache: false,
+                contentType: false,
+                processData: false,
+                timeout: 600000,
+                success: function () {
+                    $("#fileProgress").hide();
+                    $("#lblMessage").html("has been uploaded.");
+                },
+                xhr: function () {
+                    var fileXhr = $.ajaxSettings.xhr();
+                    if (fileXhr.upload) {
+                        $("progress").show();
+                        fileXhr.upload.addEventListener("progress", function (e) {
+                            if (e.lengthComputable) {
+                                $("#fileProgress").attr({
+                                    value: e.loaded,
+                                    max: e.total
+                                });
+                            }
+                        }, false);
+                    }
+                    return fileXhr;
+                }
+            });
+            return false;
+        });
+    </script>
+</body>
+</html>

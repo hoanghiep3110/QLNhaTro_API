@@ -15,6 +15,15 @@ namespace QLNhaTro_API.Controllers
         // GET: HoaDonDichVus
         public ActionResult Index()
         {
+            var result = db.ChiTietHoaDons.ToList();
+            foreach (var item in result)
+            {
+                int id = item.IdHoaDon;
+                int tientong = db.ChiTietHoaDons.Where(p => p.IdHoaDon == id).Select(p => p.ThanhTien).Sum();
+                HoaDonDichVu hoadon = db.HoaDonDichVus.SingleOrDefault(h => h.IdHoaDon == id);
+                hoadon.TienThanhToan = tientong;
+                db.SaveChanges();
+            }
             var hoaDonDichVus = db.HoaDonDichVus.Include(h => h.KhachHang).Include(h => h.Phong).Include(h => h.TaiKhoan);
             return View(hoaDonDichVus.ToList());
         }

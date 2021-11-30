@@ -173,7 +173,7 @@ namespace QLNhaTro_API.Controllers
             {
                 phong.TrangThai = 0;
             }
-            DeleteInvoice(thuePhong.IdPhong);
+            //DeleteInvoice(thuePhong.IdPhong);
             db.ThuePhongs.Remove(thuePhong);
             db.SaveChanges();
             return RedirectToAction("Index");
