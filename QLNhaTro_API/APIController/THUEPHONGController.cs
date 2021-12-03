@@ -54,8 +54,8 @@ namespace QLNhaTro_API.APIController
             hopdong.NgayBatDau = result.NgayBatDau;
             hopdong.NgayKetThuc = result.NgayKetThuc;
             hopdong.FileHopDong = result.FileHopDong;
-            //hopdong.LinkDownLoad = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + result.FileHopDong;
-            hopdong.LinkDownLoad = "https://f906-2402-800-6312-e032-29ca-d06e-69ff-2c47.ngrok.io" + result.FileHopDong;
+            hopdong.LinkDownLoad = HttpContext.Current.Request.Url.GetLeftPart(UriPartial.Authority) + result.FileHopDong;
+            //hopdong.LinkDownLoad = "https://f906-2402-800-6312-e032-29ca-d06e-69ff-2c47.ngrok.io" + result.FileHopDong;
             // Return
             return Ok(hopdong);
         }

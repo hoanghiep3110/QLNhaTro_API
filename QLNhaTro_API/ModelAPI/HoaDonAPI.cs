@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace QLNhaTro_API.ModelAPI
+﻿namespace QLNhaTro_API.ModelAPI
 {
     public class HoaDonAPI
     {

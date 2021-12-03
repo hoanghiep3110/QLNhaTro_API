@@ -1,10 +1,6 @@
-﻿using QLNhaTro_API.Helper;
-using QLNhaTro_API.ModelAPI;
-using QLNhaTro_API.Models;
+﻿using QLNhaTro_API.Models;
 using System;
-using System.IO;
 using System.Linq;
-using System.Web;
 using System.Web.Http;
 
 namespace QLNhaTro_API.APIController

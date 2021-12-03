@@ -42,11 +42,11 @@ namespace QLNhaTro_API.Controllers
         {
             List<KhachHang> list = db.KhachHangs.ToList();
             var listtp = db.ThuePhongs.ToList();
-            for (int i = 0; i< list.Count;i++)
+            for (int i = 0; i< list.Count; i++)
             {
                 for (int j = 0; j< listtp.Count; j++)
                 {
-                    if(list[i].IdKhachHang == listtp[j].IdKhachHang)
+                    if (list[i].IdKhachHang == listtp[j].IdKhachHang)
                     {
                         list.Remove(list[i]);
                     }
@@ -81,7 +81,7 @@ namespace QLNhaTro_API.Controllers
                 {
                     var extension = Path.GetExtension(fileUpload.FileName);
                     //if (!fileUpload.ContentType.Contains("application"))
-                    if(extension != ".docx" && extension != ".doc" && extension != ".pdf")
+                    if (extension != ".docx" && extension != ".doc" && extension != ".pdf")
                     {
                         ViewBag.Error1 = "File hợp đồng không hợp lệ";
                         return View(thuePhong);
@@ -183,6 +183,7 @@ namespace QLNhaTro_API.Controllers
         {
             ThuePhong thuePhong = db.ThuePhongs.Find(id);
             KhachHang khachHang = db.KhachHangs.SingleOrDefault(t => t.IdKhachHang == thuePhong.IdKhachHang);
+            HoaDonDichVu hoaDonDichVu = db.HoaDonDichVus.SingleOrDefault(h => h.IdPhong == thuePhong.IdPhong);
             var pathold = Path.Combine(Server.MapPath("~/Content/fileHopDong/"), Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen) + "-fileHopDong.docx"));
             Phong phong = db.Phongs.Find(thuePhong.IdPhong);
             if (phong.IdPhong == thuePhong.IdPhong)
@@ -195,8 +196,16 @@ namespace QLNhaTro_API.Controllers
             }
             catch (Exception)
             { }
-            DeleteInvoice(thuePhong.IdPhong);
-            db.ThuePhongs.Remove(thuePhong);
+            if (hoaDonDichVu == null)
+            {
+                db.ThuePhongs.Remove(thuePhong);
+            }
+            else
+            {
+                DeleteInvoice(thuePhong.IdPhong);
+                db.ThuePhongs.Remove(thuePhong);
+
+            }
             db.SaveChanges();
             return RedirectToAction("Index");
         }
@@ -229,11 +238,16 @@ namespace QLNhaTro_API.Controllers
             ThuePhong thue = db.ThuePhongs.SingleOrDefault(t => t.IdPhong == id);
             HoaDonDichVu hoaDonDichVu = db.HoaDonDichVus.SingleOrDefault(p => p.IdPhong == thue.IdPhong);
             List<ChiTietHoaDon> chiTietHoaDon = db.ChiTietHoaDons.Where(u => u.IdHoaDon == id).ToList();
+            if (chiTietHoaDon == null)
+            {
+                db.HoaDonDichVus.Remove(hoaDonDichVu);
+            }
             foreach (var item in chiTietHoaDon)
             {
                 db.ChiTietHoaDons.Remove(item);
             }
             db.HoaDonDichVus.Remove(hoaDonDichVu);
+            db.SaveChanges();
         }
     }
 }

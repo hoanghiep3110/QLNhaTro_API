@@ -506,7 +506,6 @@
     <Content Include="Views\ThuePhongs\Index.cshtml" />
     <Content Include="Views\TaiKhoans\Edit.cshtml" />
     <Content Include="Views\KhachHangs\TestFectchAPI.cshtml" />
-    <Content Include="Views\ChiTietHoaDons\Create.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
