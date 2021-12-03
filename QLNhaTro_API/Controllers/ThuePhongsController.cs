@@ -40,8 +40,20 @@ namespace QLNhaTro_API.Controllers
         // GET: ThuePhongs/Create
         public ActionResult Create()
         {
-            ViewBag.IdKhachHang = new SelectList(db.KhachHangs, "IdKhachHang", "HoTen");
-            ViewBag.IdPhong = new SelectList(db.Phongs, "IdPhong", "TenPhong");
+            List<KhachHang> list = db.KhachHangs.ToList();
+            var listtp = db.ThuePhongs.ToList();
+            for (int i = 0; i< list.Count;i++)
+            {
+                for (int j = 0; j< listtp.Count; j++)
+                {
+                    if(list[i].IdKhachHang == listtp[j].IdKhachHang)
+                    {
+                        list.Remove(list[i]);
+                    }
+                }
+            }
+            ViewBag.IdKhachHang = new SelectList(list, "IdKhachHang", "HoTen");
+            ViewBag.IdPhong = new SelectList(db.Phongs.Where(p => p.TrangThai == 0).ToList(), "IdPhong", "TenPhong");
             return View();
         }
 
@@ -67,13 +79,14 @@ namespace QLNhaTro_API.Controllers
                 }
                 else
                 {
-                    if (!fileUpload.ContentType.Contains("application"))
+                    var extension = Path.GetExtension(fileUpload.FileName);
+                    //if (!fileUpload.ContentType.Contains("application"))
+                    if(extension != ".docx" && extension != ".doc" && extension != ".pdf")
                     {
                         ViewBag.Error1 = "File hợp đồng không hợp lệ";
                         return View(thuePhong);
                         throw new Exception("File hợp đồng không hợp lệ");
                     }
-                    var extension = Path.GetExtension(fileUpload.FileName);
                     string khachang = db.KhachHangs.Find(thuePhong.IdKhachHang).HoTen;
                     string fileName = Path.GetFileName(RemoveVietnamese.convertToSlug(khachang) + "-fileHopDong" + extension);
                     thuePhong.FileHopDong = "/Content/fileHopDong/" + fileName;
@@ -119,23 +132,24 @@ namespace QLNhaTro_API.Controllers
                 db.SaveChanges();
                 if (fileUpload != null)
                 {
-                    if (!fileUpload.ContentType.Contains("application"))
+                    String FileName = null;
+                    var extension = Path.GetExtension(fileUpload.FileName);
+                    if (extension != ".docx" && extension != ".doc" && extension != ".pdf")
                     {
                         ViewBag.Error3 = "File hợp đồng không hợp lệ";
                         return View(thuePhong);
                     }
-                    String _FileName = null;
-                    _FileName = Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen) + "-fileHopDong.docx");
-                    string _path = Path.Combine(Server.MapPath("~/Content/fileHopDong/"), _FileName);
+                    FileName = Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen) + "-fileHopDong.docx");
+                    string _path = Path.Combine(Server.MapPath("~/Content/fileHopDong/"), FileName);
                     try
                     {
                         if (System.IO.File.Exists(pathold)) { System.IO.File.Delete(pathold); }
-                        if (System.IO.File.Exists(_path)) {System.IO.File.Delete(_path);}
+                        if (System.IO.File.Exists(_path)) { System.IO.File.Delete(_path); }
                     }
                     catch (Exception)
                     { }
                     fileUpload.SaveAs(_path);
-                    thuePhong.FileHopDong ="/Content/fileHopDong/" + _FileName;
+                    thuePhong.FileHopDong ="/Content/fileHopDong/" + FileName;
                     var fileold = db.ThuePhongs.Where(x => x.IdThue == thuePhong.IdThue).SingleOrDefault();
                     db.ThuePhongs.Remove(fileold);
                     db.ThuePhongs.Add(thuePhong);
@@ -168,12 +182,20 @@ namespace QLNhaTro_API.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             ThuePhong thuePhong = db.ThuePhongs.Find(id);
+            KhachHang khachHang = db.KhachHangs.SingleOrDefault(t => t.IdKhachHang == thuePhong.IdKhachHang);
+            var pathold = Path.Combine(Server.MapPath("~/Content/fileHopDong/"), Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen) + "-fileHopDong.docx"));
             Phong phong = db.Phongs.Find(thuePhong.IdPhong);
             if (phong.IdPhong == thuePhong.IdPhong)
             {
                 phong.TrangThai = 0;
             }
-            //DeleteInvoice(thuePhong.IdPhong);
+            try
+            {
+                if (System.IO.File.Exists(pathold)) System.IO.File.Delete(pathold);
+            }
+            catch (Exception)
+            { }
+            DeleteInvoice(thuePhong.IdPhong);
             db.ThuePhongs.Remove(thuePhong);
             db.SaveChanges();
             return RedirectToAction("Index");

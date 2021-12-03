@@ -13,6 +13,12 @@
         <div class="col-md-12">
             <h1 class="text-center my-3">XÓA THÔNG TIN PHÒNG?</h1>
             <hr />
+            @if (ViewBag.Error != null)
+            {
+                <div class="alert alert-danger" role="alert">
+                    @ViewBag.Error
+                </div>
+            }
             <div class="mb-3">
                 <h3 class="form-label">Tên phòng: @Html.DisplayFor(model => model.TenPhong)</h3>
             </div>

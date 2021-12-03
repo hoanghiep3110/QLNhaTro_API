@@ -169,12 +169,19 @@ namespace QLNhaTro_API.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             KhachHang khachHang = db.KhachHangs.Find(id);
+            var pathold = Path.Combine(Server.MapPath("~/Content/imgCMND/"), Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen.ToLower()) + "-anhCMND.png"));
             ThuePhong thuephong = db.ThuePhongs.SingleOrDefault(p => p.IdKhachHang == id);
             if (thuephong != null)
             {
                 ViewBag.Error3 = "Khách hàng đã tạo hợp đồng. Nếu muốn xoá hãy thực hiện xoá hợp đồng trước. Cảm ơn";
                 return View(khachHang);
             }
+            try
+            {
+                if (System.IO.File.Exists(pathold)) System.IO.File.Delete(pathold);
+            }
+            catch (Exception)
+            { }
             db.KhachHangs.Remove(khachHang);
             db.SaveChanges();
             return RedirectToAction("Index");

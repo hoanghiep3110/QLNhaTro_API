@@ -87,6 +87,11 @@ namespace QLNhaTro_API.Controllers
         public ActionResult DeleteConfirmed(int id)
         {
             Phong phong = db.Phongs.Find(id);
+            if(phong.TrangThai == 1)
+            {
+                ViewBag.Error = "Phòng đã được thuê !";
+                return View(phong);
+            }
             db.Phongs.Remove(phong);
             db.SaveChanges();
             return RedirectToAction("Index");

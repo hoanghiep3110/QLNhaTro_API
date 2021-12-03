@@ -32,66 +32,66 @@ namespace QLNhaTro_API.APIController
         }
 
         // POST: api/KHACHHANG
-        [HttpPost]
-        public IHttpActionResult Post()
-        {
-            var file = HttpContext.Current.Request.Files[0].FileName;
-            try
-            {
-                //if (!ModelState.IsValid)
-                //{
-                //    //if (fileUpload != null)
-                //    //{
-                //    //    var extension = Path.GetExtension(fileUpload.FileName);
-                //    //    String _FileName = null;
-                //    //    _FileName = Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen.ToLower()) + "-anhCMND" + extension);
-                //    //    string _path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/imgCMND/"), _FileName);
-                //    //    fileUpload.SaveAs(_path);
-                //    //    khachHang.SoCMND ="/Content/imgCMND/" + _FileName;
-                //    //    db.KhachHangs.Add(khachHang);
-                //    //    db.SaveChanges();
-                //    //}
-                //    //return Ok(new Message(0, "Thêm khách hàng không thành công. Vui lòng thử lại"));
-                //}
-                //Return
-                return Ok(new Message(1, "Thêm khách hàng thành công"));
-            }
-            catch (Exception)
-            {
-                return Ok(new Message(0, "Thêm khách hàng không thành công. Vui lòng thử lại"));
-            }
-        }
+        //[HttpPost]
+        //public IHttpActionResult Post()
+        //{
+        //    var file = HttpContext.Current.Request.Files[0].FileName;
+        //    try
+        //    {
+        //        //if (!ModelState.IsValid)
+        //        //{
+        //        //    //if (fileUpload != null)
+        //        //    //{
+        //        //    //    var extension = Path.GetExtension(fileUpload.FileName);
+        //        //    //    String _FileName = null;
+        //        //    //    _FileName = Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen.ToLower()) + "-anhCMND" + extension);
+        //        //    //    string _path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/imgCMND/"), _FileName);
+        //        //    //    fileUpload.SaveAs(_path);
+        //        //    //    khachHang.SoCMND ="/Content/imgCMND/" + _FileName;
+        //        //    //    db.KhachHangs.Add(khachHang);
+        //        //    //    db.SaveChanges();
+        //        //    //}
+        //        //    //return Ok(new Message(0, "Thêm khách hàng không thành công. Vui lòng thử lại"));
+        //        //}
+        //        //Return
+        //        return Ok(new Message(1, "Thêm khách hàng thành công"));
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return Ok(new Message(0, "Thêm khách hàng không thành công. Vui lòng thử lại"));
+        //    }
+        //}
 
         // PUT: api/KHACHHANG/5
-        [HttpPut]
-        public IHttpActionResult Put(int id, KhachHang khachHang)
-        {
-            try
-            {
-                if (!ModelState.IsValid)
-                {
-                    return Ok(new Message(0, "Thay đổi thông tin thất bại. Vui lòng kiểm tra và thử lại"));
-                }
-                var khachhang = db.KhachHangs.Find(id);
-                if (khachhang == null)
-                {
-                    return Ok(new Message(2, "Không tìm thấy khách hàng cần thay đổi thông tin. Vui lòng kiểm tra và thử lại"));
-                }
-                khachhang.HoTen = khachHang.HoTen;
-                khachhang.Sdt = khachHang.Sdt; ;
-                khachhang.GioiTinh = khachHang.GioiTinh;
-                khachhang.QueQuan = khachHang.QueQuan;
-                khachhang.HKTT = khachHang.HKTT;
-                khachhang.SoCMND = khachHang.SoCMND;
-                db.SaveChanges();
+        //[HttpPut]
+        //public IHttpActionResult Put(int id, KhachHang khachHang)
+        //{
+        //    try
+        //    {
+        //        if (!ModelState.IsValid)
+        //        {
+        //            return Ok(new Message(0, "Thay đổi thông tin thất bại. Vui lòng kiểm tra và thử lại"));
+        //        }
+        //        var khachhang = db.KhachHangs.Find(id);
+        //        if (khachhang == null)
+        //        {
+        //            return Ok(new Message(2, "Không tìm thấy khách hàng cần thay đổi thông tin. Vui lòng kiểm tra và thử lại"));
+        //        }
+        //        khachhang.HoTen = khachHang.HoTen;
+        //        khachhang.Sdt = khachHang.Sdt; ;
+        //        khachhang.GioiTinh = khachHang.GioiTinh;
+        //        khachhang.QueQuan = khachHang.QueQuan;
+        //        khachhang.HKTT = khachHang.HKTT;
+        //        khachhang.SoCMND = khachHang.SoCMND;
+        //        db.SaveChanges();
 
-                return Ok(new Message(1, "Thay đổi thông tin thành công"));
-            }
-            catch (Exception)
-            {
-                return Ok(new Message(0, "Thay đổi thông tin thất bại. Vui lòng kiểm tra và thử lại"));
-            }
-        }
+        //        return Ok(new Message(1, "Thay đổi thông tin thành công"));
+        //    }
+        //    catch (Exception)
+        //    {
+        //        return Ok(new Message(0, "Thay đổi thông tin thất bại. Vui lòng kiểm tra và thử lại"));
+        //    }
+        //}
 
         // DELETE: api/KHACHHANG/5
         [HttpDelete]
@@ -102,6 +102,11 @@ namespace QLNhaTro_API.APIController
                 if (!ModelState.IsValid)
                 {
                     return Ok(new Message(0, "Xoá thất bại. Vui lòng kiểm tra và thử lại"));
+                }
+                ThuePhong thuephong = db.ThuePhongs.SingleOrDefault(p => p.IdKhachHang == id);
+                if (thuephong != null)
+                {
+                    return Ok(new Message(3, "Khách hàng đã tạo hợp đồng không được xoá thông tin"));
                 }
                 KhachHang khachHang = db.KhachHangs.Find(id);
                 if (khachHang == null)

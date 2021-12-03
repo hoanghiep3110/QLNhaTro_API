@@ -1,4 +1,4 @@
-namespace QLNhaTro_API.Models
+﻿namespace QLNhaTro_API.Models
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -14,15 +14,17 @@ namespace QLNhaTro_API.Models
 
         public int IdPhong { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Tiền đặt cọc không được để trống ")]
         public int TienDatCoc { get; set; }
 
-        [Required]
+        [Required(ErrorMessage =  "Ngày bắt đầu không được để trống ")]
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime NgayBatDau { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Ngày kết thúc không được để trống ")]
         [Column(TypeName = "date")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime NgayKetThuc { get; set; }
 
         [StringLength(255)]
