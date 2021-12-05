@@ -63,18 +63,18 @@
                         @ViewBag.Error1
                     </div>
                 }
-                <div class="form-group">
-                    <h3 class="form-label">File Mềm Hợp Đồng</h3>
-                    <div class="col-md-12">
-                        <input title="Thêm file" type="file" name="fileUpload" id="fileUpload" onchange="loadFile(event)" />
-                    </div>
-                </div>
                 @if (ViewBag.Error != null)
                 {
                     <div class="alert alert-danger" role="alert">
                         @ViewBag.Error
                     </div>
                 }
+                <div class="form-group">
+                    <h3 class="form-label">File Mềm Hợp Đồng</h3>
+                    <div class="col-md-12">
+                        <input title="Thêm file" type="file" name="fileUpload" id="fileUpload" onchange="loadFile(event)" />
+                    </div>
+                </div>
 
                 <div class="mb-2 text-center">
                     <input type="submit" value="TẠO" class="btn btn-success form-control" />
