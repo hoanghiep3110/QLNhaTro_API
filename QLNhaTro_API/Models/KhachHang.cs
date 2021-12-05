@@ -1,4 +1,4 @@
-namespace QLNhaTro_API.Models
+﻿namespace QLNhaTro_API.Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -9,29 +9,28 @@ namespace QLNhaTro_API.Models
         [Key]
         public int IdKhachHang { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Họ tên không được để trống ")]
         [StringLength(255)]
         public string HoTen { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Số điện thoại không được để trống ")]
         [StringLength(255)]
         public string Sdt { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Giới tính không được để trống ")]
         [StringLength(50)]
         public string GioiTinh { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Quê quán không được để trống ")]
         [StringLength(255)]
         public string QueQuan { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Hộ khẩu thường trú không được để trống ")]
         [StringLength(255)]
         public string HKTT { get; set; }
 
         [StringLength(255)]
         public string SoCMND { get; set; }
         
-
     }
 }

@@ -1,4 +1,4 @@
-namespace QLNhaTro_API.Models
+﻿namespace QLNhaTro_API.Models
 {
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
@@ -10,7 +10,7 @@ namespace QLNhaTro_API.Models
         [Key]
         public int IdPhong { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Tên phòng không được để trống ")]
         [StringLength(255)]
         public string TenPhong { get; set; }
 

@@ -51,7 +51,7 @@ namespace QLNhaTro_API.Controllers
         public ActionResult Create([Bind(Include = "IdKhachHang,HoTen,Sdt,GioiTinh,QueQuan,HKTT,SoCMND")] KhachHang khachHang, HttpPostedFileBase fileUpload)
         {
             if (ModelState.IsValid)
-            {
+            { 
                 if (fileUpload == null)
                 {
                     ViewBag.Error = "Không được để trống file hình ảnh";
@@ -180,8 +180,7 @@ namespace QLNhaTro_API.Controllers
             {
                 if (System.IO.File.Exists(pathold)) System.IO.File.Delete(pathold);
             }
-            catch (Exception)
-            { }
+            catch (Exception){ }
             db.KhachHangs.Remove(khachHang);
             db.SaveChanges();
             return RedirectToAction("Index");

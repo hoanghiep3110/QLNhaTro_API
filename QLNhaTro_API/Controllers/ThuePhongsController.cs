@@ -62,6 +62,8 @@ namespace QLNhaTro_API.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdThue,IdKhachHang,IdPhong,TienDatCoc,NgayBatDau,NgayKetThuc")] ThuePhong thuePhong, HttpPostedFileBase fileUpload)
         {
+            ViewBag.IdKhachHang = new SelectList(db.KhachHangs, "IdKhachHang", "HoTen", thuePhong.IdKhachHang);
+            ViewBag.IdPhong = new SelectList(db.Phongs, "IdPhong", "TenPhong", thuePhong.IdPhong);
             if (ModelState.IsValid)
             {
                 Phong phong = db.Phongs.Find(thuePhong.IdPhong);
@@ -69,8 +71,7 @@ namespace QLNhaTro_API.Controllers
                 {
                     phong.TrangThai = 1;
                 }
-                ViewBag.IdKhachHang = new SelectList(db.KhachHangs, "IdKhachHang", "HoTen", thuePhong.IdKhachHang);
-                ViewBag.IdPhong = new SelectList(db.Phongs, "IdPhong", "TenPhong", thuePhong.IdPhong);
+               
                 db.ThuePhongs.Add(thuePhong);
                 if (fileUpload == null)
                 {
@@ -96,6 +97,7 @@ namespace QLNhaTro_API.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
             return View(thuePhong);
         }
 
@@ -194,8 +196,7 @@ namespace QLNhaTro_API.Controllers
             {
                 if (System.IO.File.Exists(pathold)) System.IO.File.Delete(pathold);
             }
-            catch (Exception)
-            { }
+            catch (Exception){ }
             if (hoaDonDichVu == null)
             {
                 db.ThuePhongs.Remove(thuePhong);
@@ -234,20 +235,20 @@ namespace QLNhaTro_API.Controllers
 
         public void DeleteInvoice(int id)
         {
-
-            ThuePhong thue = db.ThuePhongs.SingleOrDefault(t => t.IdPhong == id);
-            HoaDonDichVu hoaDonDichVu = db.HoaDonDichVus.SingleOrDefault(p => p.IdPhong == thue.IdPhong);
-            List<ChiTietHoaDon> chiTietHoaDon = db.ChiTietHoaDons.Where(u => u.IdHoaDon == id).ToList();
+            HoaDonDichVu hoaDonDichVu = db.HoaDonDichVus.SingleOrDefault(p => p.IdPhong == id);
+            List<ChiTietHoaDon> chiTietHoaDon = db.ChiTietHoaDons.Where(u => u.IdHoaDon == hoaDonDichVu.IdHoaDon).ToList();
             if (chiTietHoaDon == null)
             {
                 db.HoaDonDichVus.Remove(hoaDonDichVu);
             }
-            foreach (var item in chiTietHoaDon)
+            else
             {
-                db.ChiTietHoaDons.Remove(item);
+                foreach (var item in chiTietHoaDon)
+                {
+                    db.ChiTietHoaDons.Remove(item);
+                }
+                db.HoaDonDichVus.Remove(hoaDonDichVu);
             }
-            db.HoaDonDichVus.Remove(hoaDonDichVu);
-            db.SaveChanges();
         }
     }
 }

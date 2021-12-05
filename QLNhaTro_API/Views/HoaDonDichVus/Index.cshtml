@@ -31,37 +31,40 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.KhachHang.HoTen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phong.TenPhong)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TaiKhoan.HoTen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TienThanhToan)
-            </td>
-            <td>
-                @if (item.TrangThaiThanhToan == true)
-                {<i class="fas fa-check-circle text-success"></i><b><span style="color:green; padding: 5px">ĐÃ THANH TOÁN</span></b>}
-                else
-                {<i class="fas fa-times-circle text-danger"></i><b><span style="color:red; padding: 5px">CHƯA THANH TOÁN</span></b>}
-            </td>
-            <td>
-                <a class="btn btn-sm btn-success" href="@Url.Action("Edit","HoaDonDichVus",new { @id = item.IdHoaDon })">
-                    <i class="fas fa-edit"></i>
-                </a>
-                <a class="btn btn-sm btn-danger" href="@Url.Action("Delete","HoaDonDichVus",new { @id = item.IdHoaDon })">
-                    <i class="fas fa-trash-alt"></i>
-                </a>
-                <a class="btn btn-sm btn-info" href="@Url.Action("Details","HoaDonDichVus",new { @id = item.IdHoaDon })">
-                    <i class="fas fa-info-circle"></i>
-                </a>
-            </td>
-        </tr>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.KhachHang.HoTen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Phong.TenPhong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TaiKhoan.HoTen)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TienThanhToan)
+                </td>
+                <td>
+                    @if (item.TrangThaiThanhToan == true)
+                    {<i class="fas fa-check-circle text-success"></i><b><span style="color:green; padding: 5px">ĐÃ THANH TOÁN</span></b>}
+                    else
+                    {<i class="fas fa-times-circle text-danger"></i><b><span style="color:red; padding: 5px">CHƯA THANH TOÁN</span></b>}
+                </td>
+                <td>
+                    <a data-toggle="tooltip" data-placement="bottom" title="Sửa" class="btn btn-sm btn-success" href="@Url.Action("Edit","HoaDonDichVus",new { @id = item.IdHoaDon })">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="bottom" title="Xoá" class="btn btn-sm btn-danger" href="@Url.Action("Delete","HoaDonDichVus",new { @id = item.IdHoaDon })">
+                        <i class="fas fa-trash-alt"></i>
+                    </a>
+                    <a data-toggle="tooltip" data-placement="bottom" title="Xem chi tiết" class="btn btn-sm btn-info" href="@Url.Action("Details","HoaDonDichVus",new { @id = item.IdHoaDon })">
+                        <i class="fas fa-info-circle"></i>
+                    </a>
+                    <a id="btnExport" data-toggle="tooltip" data-placement="bottom" title="Xuất hoá đơn" class="btn btn-sm btn-warning" href="@Url.Action("Export","HoaDonDichVus",new { @id = item.IdHoaDon })">
+                        <i class="fas fa-download"></i>
+                    </a>
+                </td>
+            </tr>
         }
     </tbody>
 </table>
@@ -73,5 +76,17 @@
                 "url": "//cdn.datatables.net/plug-ins/1.10.22/i18n/Vietnamese.json"
             }
         });
+    });
+</script>
+
+<script>
+    $(document).ready(function () {
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#btnExport').on('click', function () {
+            $.get("/HoaDonDichVus/Export", function (resp) {
+                window.location.href = "/Content/filePDF/" + resp;
+            });
+        });  
     });
 </script>

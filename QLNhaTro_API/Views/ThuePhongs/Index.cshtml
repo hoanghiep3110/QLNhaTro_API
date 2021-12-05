@@ -58,13 +58,13 @@
                     <a href="@item.FileHopDong" download><b>@item.FileHopDong.Replace("/Content/fileHopDong/", "")</b></a>
                 </td>
                 <td>
-                    <a class="btn btn-sm btn-success" href="@Url.Action("Edit","ThuePhongs",new { @id = item.IdThue })">
+                    <a data-toggle="tooltip" data-placement="bottom" title="Sửa" class="btn btn-sm btn-success" href="@Url.Action("Edit","ThuePhongs",new { @id = item.IdThue })">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a class="btn btn-sm btn-danger" href="@Url.Action("Delete","ThuePhongs",new { @id = item.IdThue })">
+                    <a data-toggle="tooltip" data-placement="bottom" title="Xoá" class="btn btn-sm btn-danger" href="@Url.Action("Delete","ThuePhongs",new { @id = item.IdThue })">
                         <i class="fas fa-trash-alt"></i>
                     </a>
-                    <a class="btn btn-sm btn-info" href="@Url.Action("Details","ThuePhongs",new { @id = item.IdThue })">
+                    <a data-toggle="tooltip" data-placement="bottom" title="Xem chi tiết" class="btn btn-sm btn-info" href="@Url.Action("Details","ThuePhongs",new { @id = item.IdThue })">
                         <i class="fas fa-info-circle"></i>
                     </a>
                 </td>

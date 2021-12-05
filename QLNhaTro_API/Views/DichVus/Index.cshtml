@@ -31,13 +31,13 @@
                     @Html.DisplayFor(modelItem => item.DonGia)
                 </td>
                 <td>
-                    <a class="btn btn-sm btn-success" href="@Url.Action("Edit","DichVus",new { @id = item.IdDichVu })">
+                    <a data-toggle="tooltip" data-placement="bottom" title="Sửa" class="btn btn-sm btn-success" href="@Url.Action("Edit","DichVus",new { @id = item.IdDichVu })">
                         <i class="fas fa-edit"></i>
                     </a>
-                    <a class="btn btn-sm btn-danger" href="@Url.Action("Delete","DichVus",new { @id = item.IdDichVu })">
+                    <a data-toggle="tooltip" data-placement="bottom" title="Xoá" class="btn btn-sm btn-danger" href="@Url.Action("Delete","DichVus",new { @id = item.IdDichVu })">
                         <i class="fas fa-trash-alt"></i>
                     </a>
-                    <a class="btn btn-sm btn-info" href="@Url.Action("Details","DichVus",new { @id = item.IdDichVu })">
+                    <a data-toggle="tooltip" data-placement="bottom" title="Xem chi tiết" class="btn btn-sm btn-info" href="@Url.Action("Details","DichVus",new { @id = item.IdDichVu })">
                         <i class="fas fa-info-circle"></i>
                     </a>
                 </td>

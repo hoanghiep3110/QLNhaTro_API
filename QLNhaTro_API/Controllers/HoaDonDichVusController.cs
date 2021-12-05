@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
 using QLNhaTro_API.Models;
+using SelectPdf;
 
 namespace QLNhaTro_API.Controllers
 {
@@ -42,6 +44,8 @@ namespace QLNhaTro_API.Controllers
             }
             return View(chiTietHoaDon);
         }
+
+
 
         //// GET: HoaDonDichVus/Create
         //public ActionResult Create()
@@ -136,6 +140,28 @@ namespace QLNhaTro_API.Controllers
             return RedirectToAction("Index");
         }
 
+        public ActionResult Export()
+        {
+            HtmlToPdf converter = new HtmlToPdf();
+
+            // set converter options
+            converter.Options.PdfPageSize = PdfPageSize.A4;
+            converter.Options.PdfPageOrientation = PdfPageOrientation.Portrait;
+            converter.Options.MarginLeft = 10;
+            converter.Options.MarginRight = 10;
+            converter.Options.MarginTop = 20;
+            converter.Options.MarginBottom = 20;
+
+            var chitiethoadon = db.ChiTietHoaDons.ToList();
+
+            var htmlPdf = base.RenderPartialToString("~/Views/Shared/PartialViewPdf.cshtml", chitiethoadon, ControllerContext);
+            // create a new pdf document converting an html string
+            PdfDocument doc = converter.ConvertHtmlString(htmlPdf);
+            string fileName = string.Format("{0}.pdf", DateTime.Now.ToString("dd-MM-yyyy"));
+            string pathFile = string.Format("{0}/{1}", Server.MapPath("~/Content/filePDF/"), fileName);
+            doc.Save(pathFile);
+            return Json(fileName, JsonRequestBehavior.AllowGet);
+        }
         protected override void Dispose(bool disposing)
         {
             if (disposing)

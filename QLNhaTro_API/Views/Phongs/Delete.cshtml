@@ -1,7 +1,7 @@
 ﻿@model QLNhaTro_API.Models.Phong
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "Xoá";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -23,7 +23,7 @@
                 <h3 class="form-label">Tên phòng: @Html.DisplayFor(model => model.TenPhong)</h3>
             </div>
             <div class="mb-3">
-                <h3 class="form-label">Trạng thái đặt phòng: @Html.DisplayFor(model => model.TrangThai)</h3>
+                <h3 class="form-label">Trạng thái phòng: @Html.DisplayFor(model => model.TrangThai)</h3>
             </div>
             @using (Html.BeginForm())
             {

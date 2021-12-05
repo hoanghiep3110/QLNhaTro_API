@@ -1,7 +1,7 @@
 ﻿@model QLNhaTro_API.Models.KhachHang
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Sửa";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -35,7 +35,7 @@
                 <div class="mb-3">
                     <h3 class="form-label">Số điện thoại</h3>
                     <div class="col-md-12">
-                        @Html.EditorFor(model => model.Sdt, new { htmlAttributes = new { @class = "form-control", type="number" } })
+                        @Html.EditorFor(model => model.Sdt, new { htmlAttributes = new { @class = "form-control", type = "number" } })
                         @Html.ValidationMessageFor(model => model.Sdt, "", new { @class = "text-danger" })
                     </div>
                 </div>

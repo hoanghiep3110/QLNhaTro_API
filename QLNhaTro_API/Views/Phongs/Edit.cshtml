@@ -1,7 +1,7 @@
 ﻿@model QLNhaTro_API.Models.Phong
 
 @{
-    ViewBag.Title = "Edit";
+    ViewBag.Title = "Sửa";
     Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
 }
 
@@ -27,13 +27,33 @@
                     </div>
                 </div>
                 <div class="mb-3">
-                    <h3 class="form-label">Trạng thái đặt phòng:</h3>
+                    <h3 class="form-label">Trạng thái phòng:</h3>
                     <div class="col-md-12">
-                        @Html.EditorFor(model => model.TrangThai, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
+                        @*@Html.EditorFor(model => model.TrangThai, new { htmlAttributes = new { @class = "form-control" } })*@
+                        @*@Html.ValidationMessageFor(model => model.TrangThai, "", new { @class = "text-danger" })
+                            @Html.DropDownList("IdPhong", null, htmlAttributes: new { @class = "form-control" })*@
+                        <select name="TrangThai">
+                            @if (Model.TrangThai == 0)
+                            {
+                                <option selected value="0">Phòng Đang Trống</option>
+                                <option value="1">Đã Có Người</option>
+                                <option value="2">Đang Sửa Chữa</option>
+                            }
+                            else if (Model.TrangThai == 1)
+                            {
+                                <option value="0">Phòng Đang Trống</option>
+                                <option selected value="1">Đã Có Người</option>
+                                <option value="2">Đang Sửa Chữa</option>
+                            }
+                            else
+                            {
+                                <option value="0">Phòng Đang Trống</option>
+                                <option value="1">Đã Có Người</option>
+                                <option selected value="2">Đang Sửa Chữa</option>
+                            }
+                        </select>
                     </div>
                 </div>
-
                 <div class="mb-2 text-center">
                     <input type="submit" value="Lưu" class="btn btn-success form-control" />
                 </div>

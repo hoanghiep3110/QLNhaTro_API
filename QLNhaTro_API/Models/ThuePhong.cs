@@ -10,6 +10,7 @@
         [Key]
         public int IdThue { get; set; }
 
+        [Required]
         public int IdKhachHang { get; set; }
 
         public int IdPhong { get; set; }

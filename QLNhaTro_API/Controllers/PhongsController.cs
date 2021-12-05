@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
@@ -55,10 +56,12 @@ namespace QLNhaTro_API.Controllers
         // POST: Phongs/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdPhong,TenPhong,TrangThai")] Phong phong)
+        public ActionResult Edit([Bind(Include = "IdPhong,TenPhong,TrangThai")] Phong phong, FormCollection formCollection)
         {
+            int bien = int.Parse(formCollection["TrangThai"].ToString());
             if (ModelState.IsValid)
             {
+                phong.TrangThai = bien;
                 db.Entry(phong).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");
