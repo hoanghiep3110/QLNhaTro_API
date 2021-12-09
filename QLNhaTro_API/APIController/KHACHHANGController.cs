@@ -27,36 +27,36 @@ namespace QLNhaTro_API.APIController
             return Ok(khachHang);
         }
 
-        // POST: api/KHACHHANG
-        //[HttpPost]
-        //public IHttpActionResult Post()
-        //{
-        //    var file = HttpContext.Current.Request.Files[0].FileName;
-        //    try
-        //    {
-        //        //if (!ModelState.IsValid)
-        //        //{
-        //        //    //if (fileUpload != null)
-        //        //    //{
-        //        //    //    var extension = Path.GetExtension(fileUpload.FileName);
-        //        //    //    String _FileName = null;
-        //        //    //    _FileName = Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen.ToLower()) + "-anhCMND" + extension);
-        //        //    //    string _path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/imgCMND/"), _FileName);
-        //        //    //    fileUpload.SaveAs(_path);
-        //        //    //    khachHang.SoCMND ="/Content/imgCMND/" + _FileName;
-        //        //    //    db.KhachHangs.Add(khachHang);
-        //        //    //    db.SaveChanges();
-        //        //    //}
-        //        //    //return Ok(new Message(0, "Thêm khách hàng không thành công. Vui lòng thử lại"));
-        //        //}
-        //        //Return
-        //        return Ok(new Message(1, "Thêm khách hàng thành công"));
-        //    }
-        //    catch (Exception)
-        //    {
-        //        return Ok(new Message(0, "Thêm khách hàng không thành công. Vui lòng thử lại"));
-        //    }
-        //}
+        //POST: api/KHACHHANG
+       //[HttpPost]
+       // public IHttpActionResult Post()
+       // {
+       //     var file = HttpContext.Current.Request.Files[0].FileName;
+       //     try
+       //     {
+       //         //if (!ModelState.IsValid)
+       //         //{
+       //         //    //if (fileUpload != null)
+       //         //    //{
+       //         //    //    var extension = Path.GetExtension(fileUpload.FileName);
+       //         //    //    String _FileName = null;
+       //         //    //    _FileName = Path.GetFileName(RemoveVietnamese.convertToSlug(khachHang.HoTen.ToLower()) + "-anhCMND" + extension);
+       //         //    //    string _path = Path.Combine(HttpContext.Current.Server.MapPath("~/Content/imgCMND/"), _FileName);
+       //         //    //    fileUpload.SaveAs(_path);
+       //         //    //    khachHang.SoCMND ="/Content/imgCMND/" + _FileName;
+       //         //    //    db.KhachHangs.Add(khachHang);
+       //         //    //    db.SaveChanges();
+       //         //    //}
+       //         //    //return Ok(new Message(0, "Thêm khách hàng không thành công. Vui lòng thử lại"));
+       //         //}
+       //         //Return
+       //         return Ok(new Message(1, "Thêm khách hàng thành công"));
+       //     }
+       //     catch (Exception)
+       //     {
+       //         return Ok(new Message(0, "Thêm khách hàng không thành công. Vui lòng thử lại"));
+       //     }
+       // }
 
         // PUT: api/KHACHHANG/5
         //[HttpPut]
